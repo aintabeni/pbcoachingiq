@@ -23,7 +23,7 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
 
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12">
-      <div className="w-full max-w-3xl glass rounded-2xl p-6 md:p-10 lg:p-14">
+      <div className="w-full max-w-3xl">
         {/* Logo */}
         <div className="flex justify-center mb-10 fade-in">
           <img src={logo} alt="PB Logo" className="h-14 w-auto" />
@@ -74,7 +74,7 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
         </div>
 
         {/* Tally Form */}
-        <div id="tally-form" className="mt-12 fade-in glass-subtle rounded-xl p-6">
+        <div id="tally-form" className="mt-12 fade-in glass rounded-2xl p-6 md:p-8">
           <TallyEmbed />
         </div>
       </div>
