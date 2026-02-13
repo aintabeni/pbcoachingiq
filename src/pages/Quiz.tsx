@@ -2,14 +2,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/pblogo.avif";
 
-const positions = [
-  { label: "Centre-Back", route: "/scanning-defenders" },
-  { label: "Full-Back", route: "/scanning-defenders" },
-  { label: "CDM", route: "/scanning-midfielders" },
-  { label: "No.8", route: "/scanning-midfielders" },
-  { label: "CAM (No.10)", route: "/scanning-midfielders" },
-  { label: "Winger", route: "/scanning-attackers" },
-  { label: "Striker", route: "/scanning-attackers" },
+const pitchPositions = [
+  { label: "ST", x: 50, y: 5, route: "/scanning-attackers" },
+  { label: "CAM", x: 50, y: 18, route: "/scanning-midfielders" },
+  { label: "LW", x: 22, y: 25, route: "/scanning-attackers" },
+  { label: "RW", x: 78, y: 25, route: "/scanning-attackers" },
+  { label: "CM", x: 50, y: 38, route: "/scanning-midfielders" },
+  { label: "DM", x: 50, y: 52, route: "/scanning-midfielders" },
+  { label: "LB", x: 15, y: 68, route: "/scanning-defenders" },
+  { label: "CB", x: 38, y: 68, route: "/scanning-defenders" },
+  { label: "CB", x: 62, y: 68, route: "/scanning-defenders" },
+  { label: "RB", x: 85, y: 68, route: "/scanning-defenders" },
+  { label: "GK", x: 50, y: 88, route: "/scanning-defenders" },
 ];
 
 const struggles = [
@@ -22,13 +26,13 @@ const struggles = [
 
 const Quiz = () => {
   const [step, setStep] = useState(1);
-  const [selectedPositions, setSelectedPositions] = useState<string[]>([]);
+  const [selectedPositions, setSelectedPositions] = useState<number[]>([]);
   const [selectedStruggle, setSelectedStruggle] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const togglePosition = (label: string) => {
+  const togglePosition = (index: number) => {
     setSelectedPositions((prev) =>
-      prev.includes(label) ? prev.filter((p) => p !== label) : [...prev, label]
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
 
@@ -38,8 +42,7 @@ const Quiz = () => {
 
   const handleFinish = () => {
     if (!selectedStruggle) return;
-    // Route based on first selected position
-    const firstPos = positions.find((p) => selectedPositions.includes(p.label));
+    const firstPos = pitchPositions[selectedPositions[0]];
     if (firstPos) navigate(firstPos.route);
   };
 
@@ -47,41 +50,61 @@ const Quiz = () => {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-lg">
         {/* Logo */}
-        <div className="flex justify-center mb-8 fade-in">
+        <div className="flex justify-center mb-6 fade-in">
           <img src={logo} alt="PB Logo" className="h-16 w-auto" />
         </div>
 
-        {/* Progress */}
-        <div className="flex items-center justify-center gap-2 mb-8 fade-in">
-          <div className={`h-1.5 w-16 rounded-full transition-colors ${step >= 1 ? "bg-primary" : "bg-secondary"}`} />
-          <div className={`h-1.5 w-16 rounded-full transition-colors ${step >= 2 ? "bg-primary" : "bg-secondary"}`} />
-          <span className="ml-3 text-sm text-muted-foreground">{step} of 2</span>
+        {/* Progress Bar */}
+        <div className="mb-6 fade-in">
+          <p className="text-sm text-muted-foreground text-center mb-2">
+            Step {step} of 2
+          </p>
+          <div className="flex gap-1 w-full">
+            <div className={`h-2 flex-1 rounded-full transition-colors ${step >= 1 ? "bg-primary" : "bg-secondary"}`} />
+            <div className={`h-2 flex-1 rounded-full transition-colors ${step >= 2 ? "bg-primary" : "bg-secondary"}`} />
+          </div>
         </div>
 
         {step === 1 && (
           <div className="fade-in">
-            <h1 className="text-2xl md:text-3xl font-bold text-center mb-8 text-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-foreground">
               What position(s) do you play most?
             </h1>
-            <div className="flex flex-col gap-3">
-              {positions.map((pos) => (
-                <button
-                  key={pos.label}
-                  onClick={() => togglePosition(pos.label)}
-                  className={`w-full py-4 px-6 rounded-lg text-lg font-semibold transition-all duration-200 border-2 ${
-                    selectedPositions.includes(pos.label)
-                      ? "bg-primary text-primary-foreground border-primary glow-yellow"
-                      : "bg-secondary text-secondary-foreground border-border hover:border-primary/50"
-                  }`}
-                >
-                  {pos.label}
-                </button>
-              ))}
+
+            {/* Pitch Formation */}
+            <div className="relative w-full aspect-[3/4] max-w-sm mx-auto mb-8">
+              {pitchPositions.map((pos, i) => {
+                const isSelected = selectedPositions.includes(i);
+                return (
+                  <button
+                    key={`${pos.label}-${i}`}
+                    onClick={() => togglePosition(i)}
+                    className="absolute flex flex-col items-center gap-1 -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+                    style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
+                  >
+                    <span
+                      className={`text-xs font-bold transition-colors ${
+                        isSelected ? "text-primary" : "text-muted-foreground"
+                      }`}
+                    >
+                      {pos.label}
+                    </span>
+                    <div
+                      className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                        isSelected
+                          ? "bg-primary shadow-[0_0_12px_3px_hsl(var(--primary)/0.6)]"
+                          : "bg-destructive shadow-[0_0_8px_2px_hsl(var(--destructive)/0.5)] group-hover:shadow-[0_0_12px_3px_hsl(var(--destructive)/0.7)]"
+                      }`}
+                    />
+                  </button>
+                );
+              })}
             </div>
+
             <button
               onClick={handleNext}
               disabled={selectedPositions.length === 0}
-              className="w-full mt-8 py-4 px-6 rounded-lg text-lg font-bold bg-primary text-primary-foreground transition-all hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed glow-yellow"
+              className="w-full py-4 px-6 rounded-lg text-lg font-bold bg-primary text-primary-foreground transition-all hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed glow-yellow"
             >
               Next
             </button>
