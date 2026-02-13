@@ -1,4 +1,3 @@
-import logo from "@/assets/pblogo.avif";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import TallyEmbed from "@/components/TallyEmbed";
 
@@ -24,10 +23,6 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12">
       <div className="w-full max-w-3xl">
-        {/* Logo */}
-        <div className="flex justify-center mb-10 fade-in">
-          <img src={logo} alt="PB Logo" className="h-14 w-auto" />
-        </div>
 
         {/* Pre-headline */}
         <p className="text-center text-primary font-semibold text-sm md:text-base tracking-widest uppercase mb-4 fade-in">
