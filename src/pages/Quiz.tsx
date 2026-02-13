@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 
 const pitchPositions = [
@@ -95,13 +96,12 @@ const Quiz = () => {
               })}
             </div>
 
-            <button
+            <InteractiveHoverButton
+              text="Next"
               onClick={handleNext}
               disabled={selectedPositions.length === 0}
-              className="w-full py-4 px-6 rounded-lg text-lg font-bold bg-primary text-primary-foreground transition-all hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed glow-yellow"
-            >
-              Next
-            </button>
+              className="disabled:opacity-40 disabled:cursor-not-allowed"
+            />
           </div>
         )}
 
@@ -125,13 +125,12 @@ const Quiz = () => {
                 </button>
               ))}
             </div>
-            <button
+            <InteractiveHoverButton
+              text="Get My Custom Solution"
               onClick={handleFinish}
               disabled={!selectedStruggle}
-              className="w-full mt-8 py-4 px-6 rounded-lg text-lg font-bold bg-primary text-primary-foreground transition-all hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed glow-yellow"
-            >
-              Get My Custom Solution
-            </button>
+              className="mt-8 disabled:opacity-40 disabled:cursor-not-allowed"
+            />
           </div>
         )}
       </div>
