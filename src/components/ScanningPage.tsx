@@ -67,11 +67,14 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
 
         {/* CTA */}
         <div className="flex justify-center fade-in max-w-md mx-auto">
-          <InteractiveHoverButton text={ctaText} />
+          <InteractiveHoverButton
+            text={ctaText}
+            onClick={() => document.getElementById("tally-form")?.scrollIntoView({ behavior: "smooth" })}
+          />
         </div>
 
         {/* Tally Form */}
-        <div className="mt-12 fade-in">
+        <div id="tally-form" className="mt-12 fade-in">
           <TallyEmbed />
         </div>
       </div>
