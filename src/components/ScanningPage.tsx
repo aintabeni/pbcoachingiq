@@ -23,7 +23,7 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
 
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12">
-      <div className="w-full max-w-3xl">
+      <div className="w-full max-w-3xl glass rounded-2xl p-6 md:p-10 lg:p-14">
         {/* Logo */}
         <div className="flex justify-center mb-10 fade-in">
           <img src={logo} alt="PB Logo" className="h-14 w-auto" />
@@ -35,14 +35,14 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
         </p>
 
         {/* Headline */}
-        <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-center leading-tight mb-6 fade-in text-foreground">
+        <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-center leading-tight mb-6 fade-in text-foreground drop-shadow-lg">
           The 4-Step Scanning Order That Makes The Game{" "}
           <span className="text-gradient-yellow">Slow Down</span>, Accelerates Your Football Growth and Makes You{" "}
           <span className="text-gradient-yellow">Stand Out</span> on the Pitch in 30 Days or Less!
         </h1>
 
         {/* Description */}
-        <p className="text-center text-muted-foreground text-base md:text-lg mb-10 max-w-2xl mx-auto fade-in">
+        <p className="text-center text-foreground/80 text-base md:text-lg mb-10 max-w-2xl mx-auto fade-in">
           {description}
         </p>
 
@@ -60,8 +60,8 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
         )}
 
         {!embedUrl && (
-          <div className="w-full aspect-video rounded-xl overflow-hidden mb-10 bg-secondary flex items-center justify-center fade-in border border-border">
-            <p className="text-muted-foreground text-lg">Video Coming Soon</p>
+          <div className="w-full aspect-video rounded-xl overflow-hidden mb-10 glass-subtle flex items-center justify-center fade-in">
+            <p className="text-foreground/60 text-lg">Video Coming Soon</p>
           </div>
         )}
 
@@ -74,7 +74,7 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
         </div>
 
         {/* Tally Form */}
-        <div id="tally-form" className="mt-12 fade-in">
+        <div id="tally-form" className="mt-12 fade-in glass-subtle rounded-xl p-6">
           <TallyEmbed />
         </div>
       </div>
