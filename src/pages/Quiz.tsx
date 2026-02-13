@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "@/assets/pblogo.avif";
+
 
 const pitchPositions = [
   { label: "ST", x: 50, y: 5, route: "/scanning-attackers" },
@@ -49,10 +49,6 @@ const Quiz = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-lg">
-        {/* Logo */}
-        <div className="flex justify-center mb-6 fade-in">
-          <img src={logo} alt="PB Logo" className="h-16 w-auto" />
-        </div>
 
         {/* Progress Bar */}
         <div className="mb-6 fade-in">
