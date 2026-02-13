@@ -1,4 +1,5 @@
 import logo from "@/assets/pblogo.avif";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 interface ScanningPageProps {
   preHeadline: string;
@@ -64,10 +65,8 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
         )}
 
         {/* CTA */}
-        <div className="flex justify-center fade-in">
-          <button className="py-4 px-10 rounded-lg text-lg md:text-xl font-bold bg-primary text-primary-foreground transition-all hover:opacity-90 hover:scale-105 glow-yellow">
-            {ctaText}
-          </button>
+        <div className="flex justify-center fade-in max-w-md mx-auto">
+          <InteractiveHoverButton text={ctaText} />
         </div>
       </div>
     </div>
