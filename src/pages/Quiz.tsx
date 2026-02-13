@@ -30,10 +30,8 @@ const Quiz = () => {
   const [selectedStruggle, setSelectedStruggle] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const togglePosition = (index: number) => {
-    setSelectedPositions((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
+  const selectPosition = (index: number) => {
+    setSelectedPositions([index]);
   };
 
   const handleNext = () => {
@@ -74,7 +72,7 @@ const Quiz = () => {
                 return (
                   <button
                     key={`${pos.label}-${i}`}
-                    onClick={() => togglePosition(i)}
+                    onClick={() => selectPosition(i)}
                     className="absolute flex flex-col items-center gap-1 -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
                     style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
                   >
