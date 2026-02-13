@@ -22,7 +22,7 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
 
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12">
-      <div className="w-full max-w-3xl">
+      <div className="w-full max-w-3xl lg:max-w-5xl">
 
         {/* Pre-headline */}
         <p className="text-center text-primary font-semibold text-sm md:text-base tracking-widest uppercase mb-4 fade-in">
