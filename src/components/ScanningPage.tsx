@@ -1,5 +1,6 @@
 import logo from "@/assets/pblogo.avif";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import TallyEmbed from "@/components/TallyEmbed";
 
 interface ScanningPageProps {
   preHeadline: string;
@@ -67,6 +68,11 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
         {/* CTA */}
         <div className="flex justify-center fade-in max-w-md mx-auto">
           <InteractiveHoverButton text={ctaText} />
+        </div>
+
+        {/* Tally Form */}
+        <div className="mt-12 fade-in">
+          <TallyEmbed />
         </div>
       </div>
     </div>
