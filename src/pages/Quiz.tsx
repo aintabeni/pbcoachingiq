@@ -62,12 +62,12 @@ const Quiz = () => {
 
         {step === 1 && (
           <div className="fade-in">
-            <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-foreground">
+            <h1 className="text-xl md:text-2xl font-bold text-center mb-4 text-foreground">
               What position(s) do you play most?
             </h1>
 
             {/* Pitch Formation */}
-            <div className="relative w-full aspect-[3/4] max-w-sm mx-auto mb-8">
+            <div className="relative w-full aspect-[4/5] max-w-xs mx-auto mb-4">
               {pitchPositions.map((pos, i) => {
                 const isSelected = selectedPositions.includes(i);
                 return (
@@ -107,15 +107,15 @@ const Quiz = () => {
 
         {step === 2 && (
           <div className="slide-in-right">
-            <h1 className="text-2xl md:text-3xl font-bold text-center mb-8 text-foreground">
+            <h1 className="text-xl md:text-2xl font-bold text-center mb-6 text-foreground">
               What's your biggest challenge on the pitch right now?
             </h1>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               {struggles.map((s) => (
                 <button
                   key={s}
                   onClick={() => setSelectedStruggle(s)}
-                  className={`w-full py-4 px-6 rounded-lg text-lg font-semibold transition-all duration-200 border-2 ${
+                  className={`w-full py-3 px-5 rounded-lg text-base font-semibold transition-all duration-200 border-2 ${
                     selectedStruggle === s
                       ? "bg-primary text-primary-foreground border-primary glow-yellow"
                       : "bg-secondary text-secondary-foreground border-border hover:border-primary/50"
@@ -129,7 +129,7 @@ const Quiz = () => {
               text="Get My Custom Solution"
               onClick={handleFinish}
               disabled={!selectedStruggle}
-              className="mt-8 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="mt-6 disabled:opacity-40 disabled:cursor-not-allowed"
             />
           </div>
         )}
