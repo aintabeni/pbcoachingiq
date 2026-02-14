@@ -46,7 +46,7 @@ const Quiz = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+    <div className="h-screen flex flex-col items-center justify-center px-4 py-6 overflow-hidden">
       <div className="w-full max-w-lg">
 
         {/* Progress Bar */}
