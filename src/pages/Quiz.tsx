@@ -19,7 +19,7 @@ const pitchPositions = [
 
 const struggles = [
   "Technique",
-  "Tactics",
+  "Physicality/Conditioning",
   "Confidence",
   "Technique + Tactics",
   "I struggle with all",
