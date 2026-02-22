@@ -21,7 +21,7 @@ const struggles = [
   "Technique",
   "Physicality/Conditioning",
   "Confidence",
-  "Technique + Tactics",
+  "Scanning",
   "I struggle with all",
 ];
 
