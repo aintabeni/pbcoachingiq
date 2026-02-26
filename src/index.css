@@ -65,7 +65,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Sansation', 'Inter', system-ui, sans-serif;
-    background-image: url('/images/cool-yellow-gradient.avif');
+    background-image: radial-gradient(ellipse at 30% 20%, hsl(220 20% 14%) 0%, hsl(220 20% 8%) 60%, hsl(220 20% 5%) 100%);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
