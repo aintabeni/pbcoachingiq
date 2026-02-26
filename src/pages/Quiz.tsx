@@ -63,7 +63,7 @@ const Quiz = () => {
         {step === 1 && (
           <div className="fade-in">
             <h1 className="text-xl md:text-2xl font-bold text-center mb-4 text-foreground">
-              What position(s) do you play most?
+              What position do you play most?
             </h1>
 
             {/* Pitch Formation */}
