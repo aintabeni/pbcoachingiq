@@ -63,7 +63,7 @@ const Quiz = () => {
         {step === 1 && (
           <div className="fade-in">
             <h1 className="text-xl md:text-2xl font-bold text-center mb-2 text-foreground">
-              Click the position you play
+              Click the position you most play in
             </h1>
 
             {/* Tap hint illustration */}
