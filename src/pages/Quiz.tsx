@@ -62,9 +62,19 @@ const Quiz = () => {
 
         {step === 1 && (
           <div className="fade-in">
-            <h1 className="text-xl md:text-2xl font-bold text-center mb-4 text-foreground">
-              What position do you play most?
+            <h1 className="text-xl md:text-2xl font-bold text-center mb-2 text-foreground">
+              Click the position you play
             </h1>
+
+            {/* Tap hint illustration */}
+            <div className="flex items-center justify-center gap-2 mb-4 text-muted-foreground">
+              <span className="text-lg">👆</span>
+              <span className="text-xs tracking-wide">Tap a position on the pitch below</span>
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+              </span>
+            </div>
 
             {/* Pitch Formation */}
             <div className="relative w-full aspect-[4/5] max-w-xs mx-auto mb-4">
