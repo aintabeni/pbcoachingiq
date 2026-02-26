@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
@@ -29,7 +29,16 @@ const Quiz = () => {
   const [step, setStep] = useState(1);
   const [selectedPositions, setSelectedPositions] = useState<number[]>([]);
   const [selectedStruggle, setSelectedStruggle] = useState<string | null>(null);
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (selectedPositions.length > 0) return;
+    const interval = setInterval(() => {
+      setHighlightedIndex(Math.floor(Math.random() * pitchPositions.length));
+    }, 1500);
+    return () => clearInterval(interval);
+  }, [selectedPositions.length]);
 
   const selectPosition = (index: number) => {
     setSelectedPositions([index]);
@@ -70,10 +79,6 @@ const Quiz = () => {
             <div className="flex items-center justify-center gap-2 mb-4 text-muted-foreground">
               <span className="text-lg">👆</span>
               <span className="text-xs tracking-wide">Tap a position on the pitch below</span>
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
-              </span>
             </div>
 
             {/* Pitch Formation */}
@@ -94,13 +99,18 @@ const Quiz = () => {
                     >
                       {pos.label}
                     </span>
-                    <div
-                      className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                        isSelected
-                          ? "bg-primary shadow-[0_0_12px_3px_hsl(var(--primary)/0.6)]"
-                          : "bg-destructive shadow-[0_0_8px_2px_hsl(var(--destructive)/0.5)] group-hover:shadow-[0_0_12px_3px_hsl(var(--destructive)/0.7)]"
-                      }`}
-                    />
+                    <div className="relative">
+                      {i === highlightedIndex && selectedPositions.length === 0 && (
+                        <span className="absolute inset-0 -m-1.5 rounded-full animate-ping bg-primary opacity-50" />
+                      )}
+                      <div
+                        className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                          isSelected
+                            ? "bg-primary shadow-[0_0_12px_3px_hsl(var(--primary)/0.6)]"
+                            : "bg-destructive shadow-[0_0_8px_2px_hsl(var(--destructive)/0.5)] group-hover:shadow-[0_0_12px_3px_hsl(var(--destructive)/0.7)]"
+                        }`}
+                      />
+                    </div>
                   </button>
                 );
               })}
