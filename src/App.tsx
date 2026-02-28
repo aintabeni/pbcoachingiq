@@ -7,6 +7,9 @@ import Index from "./pages/Index";
 import ScanningAttackers from "./pages/ScanningAttackers";
 import ScanningMidfielders from "./pages/ScanningMidfielders";
 import ScanningDefenders from "./pages/ScanningDefenders";
+import TechniqueAttackers from "./pages/TechniqueAttackers";
+import TechniqueMidfielders from "./pages/TechniqueMidfielders";
+import TechniqueDefenders from "./pages/TechniqueDefenders";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +25,9 @@ const App = () => (
           <Route path="/scanning-attackers" element={<ScanningAttackers />} />
           <Route path="/scanning-midfielders" element={<ScanningMidfielders />} />
           <Route path="/scanning-defenders" element={<ScanningDefenders />} />
+          <Route path="/technique-attackers" element={<TechniqueAttackers />} />
+          <Route path="/technique-midfielders" element={<TechniqueMidfielders />} />
+          <Route path="/technique-defenders" element={<TechniqueDefenders />} />
           <Route path="/index" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
