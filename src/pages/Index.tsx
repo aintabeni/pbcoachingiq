@@ -1,5 +1,5 @@
-import Quiz from "./Quiz";
+import Landing from "./Landing";
 
-const Index = () => <Quiz />;
+const Index = () => <Landing />;
 
 export default Index;
