@@ -18,7 +18,7 @@ const Landing = () => {
         </h1>
 
         <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-md mx-auto">
-          Tell us your position and your biggest area to improve — we'll show you exactly what to train next.
+          Tell us your position and your biggest area to improve, and we'll show you exactly what to train next.
         </p>
 
         <InteractiveHoverButton
