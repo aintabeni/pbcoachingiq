@@ -4,22 +4,23 @@ import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button
 
 
 const pitchPositions = [
-  { label: "ST", x: 50, y: 5, scanningRoute: "/scanning-attackers", techniqueRoute: "/technique-attackers" },
-  { label: "CAM", x: 50, y: 18, scanningRoute: "/scanning-midfielders", techniqueRoute: "/technique-midfielders" },
-  { label: "LW", x: 22, y: 25, scanningRoute: "/scanning-attackers", techniqueRoute: "/technique-attackers" },
-  { label: "RW", x: 78, y: 25, scanningRoute: "/scanning-attackers", techniqueRoute: "/technique-attackers" },
-  { label: "CM", x: 50, y: 38, scanningRoute: "/scanning-midfielders", techniqueRoute: "/technique-midfielders" },
-  { label: "DM", x: 50, y: 52, scanningRoute: "/scanning-midfielders", techniqueRoute: "/technique-midfielders" },
-  { label: "LB", x: 15, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders" },
-  { label: "CB", x: 38, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders" },
-  { label: "CB", x: 62, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders" },
-  { label: "RB", x: 85, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders" },
-  { label: "GK", x: 50, y: 88, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders" },
+  { label: "ST", x: 50, y: 5, scanningRoute: "/scanning-attackers", techniqueRoute: "/technique-attackers", conditioningRoute: "/conditioning" },
+  { label: "CAM", x: 50, y: 18, scanningRoute: "/scanning-midfielders", techniqueRoute: "/technique-midfielders", conditioningRoute: "/conditioning" },
+  { label: "LW", x: 22, y: 25, scanningRoute: "/scanning-attackers", techniqueRoute: "/technique-attackers", conditioningRoute: "/conditioning" },
+  { label: "RW", x: 78, y: 25, scanningRoute: "/scanning-attackers", techniqueRoute: "/technique-attackers", conditioningRoute: "/conditioning" },
+  { label: "CM", x: 50, y: 38, scanningRoute: "/scanning-midfielders", techniqueRoute: "/technique-midfielders", conditioningRoute: "/conditioning" },
+  { label: "DM", x: 50, y: 52, scanningRoute: "/scanning-midfielders", techniqueRoute: "/technique-midfielders", conditioningRoute: "/conditioning" },
+  { label: "LB", x: 15, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders", conditioningRoute: "/conditioning" },
+  { label: "CB", x: 38, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders", conditioningRoute: "/conditioning" },
+  { label: "CB", x: 62, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders", conditioningRoute: "/conditioning" },
+  { label: "RB", x: 85, y: 68, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders", conditioningRoute: "/conditioning" },
+  { label: "GK", x: 50, y: 88, scanningRoute: "/scanning-defenders", techniqueRoute: "/technique-defenders", conditioningRoute: "/conditioning" },
 ];
 
 const struggles = [
   "Scanning",
   "Technique",
+  "Conditioning",
 ];
 
 const Quiz = () => {
@@ -46,7 +47,9 @@ const Quiz = () => {
     if (!selectedStruggle) return;
     const firstPos = pitchPositions[selectedPositions[0]];
     if (!firstPos) return;
-    navigate(selectedStruggle === "Technique" ? firstPos.techniqueRoute : firstPos.scanningRoute);
+    if (selectedStruggle === "Technique") navigate(firstPos.techniqueRoute);
+    else if (selectedStruggle === "Conditioning") navigate(firstPos.conditioningRoute);
+    else navigate(firstPos.scanningRoute);
   };
 
   return (
