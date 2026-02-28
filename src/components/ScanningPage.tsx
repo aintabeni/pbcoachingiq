@@ -3,7 +3,7 @@ import TallyEmbed from "@/components/TallyEmbed";
 
 interface ScanningPageProps {
   preHeadline: string;
-  headline: string;
+  headline: React.ReactNode;
   description: string;
   videoUrl?: string;
   ctaText: string;
@@ -31,9 +31,7 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
 
         {/* Headline */}
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-center leading-tight mb-6 fade-in text-foreground drop-shadow-lg">
-          The 4-Step Scanning Order That Makes The Game{" "}
-          <span className="text-gradient-yellow">Slow Down</span>, Accelerates Your Football Growth and Makes You{" "}
-          <span className="text-gradient-yellow">Stand Out</span> on the Pitch in 30 Days or Less!
+          {headline}
         </h1>
 
         {/* Description */}
