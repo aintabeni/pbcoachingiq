@@ -39,10 +39,7 @@ const Quiz = () => {
 
   const selectPosition = (index: number) => {
     setSelectedPositions([index]);
-  };
-
-  const handleNext = () => {
-    if (selectedPositions.length > 0) setStep(2);
+    setStep(2);
   };
 
   const handleFinish = () => {
@@ -114,12 +111,6 @@ const Quiz = () => {
               })}
             </div>
 
-            <InteractiveHoverButton
-              text="Next"
-              onClick={handleNext}
-              disabled={selectedPositions.length === 0}
-              className="disabled:opacity-40 disabled:cursor-not-allowed"
-            />
           </div>
         )}
 
