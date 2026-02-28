@@ -1,22 +1,47 @@
 
 
-## Animated Position Guide on Quiz Pitch
+## Add Technique Pages + Update Quiz Flow
 
-Add a randomly cycling highlight/pulse effect that moves between pitch positions, visually demonstrating to users how to tap the circles.
+### Overview
+Create 3 new technique-specific VSL pages (defenders, attackers, midfielders) and update the quiz so that step 2 only shows "Scanning" and "Technique" as options. When "Technique" is selected, the user is routed to the corresponding technique page based on their position from step 1.
 
-### How it works
+### Changes
 
-1. A `useEffect` sets up an interval (every 1.5s) that picks a random pitch position index and stores it as `highlightedIndex` state.
-2. The highlighted position gets a special pulsing ring animation (similar to the existing ping effect) around its dot, drawing the user's eye.
-3. When the user selects a position, the cycling animation stops (clear the interval) so it doesn't distract after they've understood the interaction.
-4. The highlight is purely visual -- a scaling/pulsing ring behind the dot -- and doesn't interfere with selection state or styling.
+#### 1. Create 3 new technique pages
+Each reuses the existing `ScanningPage` component with technique-focused copy:
+
+- **`src/pages/TechniqueDefenders.tsx`** -- Video: `https://youtu.be/-rzdFQy2WEY?si=N1P3BT2iazU_G--c`, headline tailored for defenders struggling with technique.
+- **`src/pages/TechniqueAttackers.tsx`** -- Video: `https://youtu.be/CDW8epyV4y8?si=f2wHO0ThTxudQ6LY`, headline tailored for attackers.
+- **`src/pages/TechniqueMidfielders.tsx`** -- Video: `https://youtu.be/uCA-4FOz5Vs?si=f5nSt7S2IkMrX7q9`, headline tailored for midfielders.
+
+The headline in `ScanningPage` is currently hardcoded. The component already accepts `preHeadline`, `headline`, `description`, and `ctaText` props but the `h1` content is hardcoded and ignores the `headline` prop. This will be fixed so the headline is dynamic.
+
+#### 2. Fix ScanningPage to use the `headline` prop
+Currently the h1 text is hardcoded. Update it to render the passed `headline` prop so each page can have its own headline.
+
+#### 3. Update Quiz step 2 options
+Reduce the `struggles` array to only two options:
+- "Technique"  
+- "Scanning"
+
+#### 4. Update Quiz routing logic
+Add technique routes to `pitchPositions` and update `handleFinish`:
+- If "Scanning" is selected, navigate to the existing scanning route (based on position).
+- If "Technique" is selected, navigate to the corresponding technique route (`/technique-attackers`, `/technique-midfielders`, `/technique-defenders`).
+
+Each pitch position entry will store both a `scanningRoute` and a `techniqueRoute`.
+
+#### 5. Register new routes in App.tsx
+Add 3 new routes:
+- `/technique-attackers` renders `TechniqueAttackers`
+- `/technique-midfielders` renders `TechniqueMidfielders`
+- `/technique-defenders` renders `TechniqueDefenders`
 
 ### Technical Details
 
-**File: `src/pages/Quiz.tsx`**
+**Files created:** `src/pages/TechniqueDefenders.tsx`, `src/pages/TechniqueAttackers.tsx`, `src/pages/TechniqueMidfielders.tsx`
 
-- Add `highlightedIndex` state and a `useEffect` with `setInterval` that randomly picks a position index every ~1.5 seconds.
-- Clear the interval when `selectedPositions.length > 0` (user has tapped).
-- On each position dot, if `i === highlightedIndex` and nothing is selected yet, render an extra pulsing ring element (using `animate-ping` with primary/destructive color) behind the dot to guide attention.
-- Remove the static pulsing dot from the tap-hint text area since the pitch itself now demonstrates the interaction.
-
+**Files modified:**
+- `src/components/ScanningPage.tsx` -- Replace hardcoded h1 with `{headline}` prop usage
+- `src/pages/Quiz.tsx` -- Update `pitchPositions` to include `techniqueRoute`, reduce struggles to 2 options, update `handleFinish` to route based on selected struggle
+- `src/App.tsx` -- Add 3 new route entries
