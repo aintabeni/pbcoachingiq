@@ -38,7 +38,7 @@ const TallyEmbed = () => {
   return (
     <div ref={containerRef} className="w-full">
       <iframe
-        data-tally-src="https://tally.so/embed/MezQ4Y?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        data-tally-src="https://tally.so/embed/MezQ4Y?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&redirectUrl=/thank-you"
         loading="lazy"
         width="100%"
         height="200"

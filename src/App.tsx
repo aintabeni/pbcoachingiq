@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
 import Apply from "./pages/Apply";
+import ThankYou from "./pages/ThankYou";
 import ScanningAttackers from "./pages/ScanningAttackers";
 import ScanningMidfielders from "./pages/ScanningMidfielders";
 import ScanningDefenders from "./pages/ScanningDefenders";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/apply" element={<Apply />} />
+          <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/scanning-attackers" element={<ScanningAttackers />} />
           <Route path="/scanning-midfielders" element={<ScanningMidfielders />} />
           <Route path="/scanning-defenders" element={<ScanningDefenders />} />
