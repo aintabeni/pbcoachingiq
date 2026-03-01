@@ -1,0 +1,134 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+import feedback1 from "@/assets/feedback-1.jpg";
+import feedback2 from "@/assets/feedback-2.jpg";
+import feedback3 from "@/assets/feedback-3.png";
+import feedback4 from "@/assets/feedback-4.jpg";
+import feedback5 from "@/assets/feedback-5.jpg";
+import feedback6 from "@/assets/feedback-6.jpg";
+import feedback7 from "@/assets/feedback-7.jpg";
+import feedback8 from "@/assets/feedback-8.jpg";
+import feedback9 from "@/assets/feedback-9.png";
+import feedback10 from "@/assets/feedback-10.jpg";
+import feedback11 from "@/assets/feedback-11.jpg";
+import feedback12 from "@/assets/feedback-12.jpg";
+import feedback13 from "@/assets/feedback-13.jpg";
+import feedback14 from "@/assets/feedback-14.png";
+import feedback15 from "@/assets/feedback-15.png";
+import feedback16 from "@/assets/feedback-16.jpg";
+import feedback17 from "@/assets/feedback-17.jpg";
+import feedback18 from "@/assets/feedback-18.jpg";
+import feedback19 from "@/assets/feedback-19.jpg";
+import feedback20 from "@/assets/feedback-20.jpg";
+import feedback21 from "@/assets/feedback-21.jpg";
+import feedback22 from "@/assets/feedback-22.png";
+import feedback23 from "@/assets/feedback-23.png";
+
+const feedbackImages = [
+  { src: feedback11, alt: "Josh testimonial about Patrick training his son Phill during pandemic" },
+  { src: feedback1, alt: "Player feedback about decision making improvement" },
+  { src: feedback4, alt: "Coach feedback about player debut" },
+  { src: feedback12, alt: "Jess testimonial about Patrick mentoring Connor" },
+  { src: feedback2, alt: "Player celebrating success from training sessions" },
+  { src: feedback5, alt: "Feedback about content quality" },
+  { src: feedback13, alt: "Thelma testimonial about Jonas transformation in Norwegian" },
+  { src: feedback3, alt: "Parent feedback about player performance" },
+  { src: feedback6, alt: "Parent sharing match performance stats" },
+  { src: feedback14, alt: "Tournament win celebration with 3 games won" },
+  { src: feedback7, alt: "Match performance update with goals scored" },
+  { src: feedback8, alt: "Comeback performance with 8 goals" },
+  { src: feedback15, alt: "Narhan Roberts sharing goal scored in recent match" },
+  { src: feedback9, alt: "Henrik Hatlen Osen professional player testimonial" },
+  { src: feedback10, alt: "Coach feedback on excellent game performance" },
+  { src: feedback16, alt: "Parent thanking Patrick - Daris had lots of fun and looking forward to next session" },
+  { src: feedback17, alt: "5-star review from Gentina - very satisfied with Patrick's teaching" },
+  { src: feedback18, alt: "Parent feedback - son training with first team, coach noticed improvement in one month" },
+  { src: feedback19, alt: "Parent feedback - Henjek also very satisfied" },
+  { src: feedback20, alt: "Parent feedback - Leonek loved yesterday's training and wants to schedule more" },
+  { src: feedback21, alt: "Parent feedback - Leon keeps asking for more training sessions" },
+  { src: feedback22, alt: "Player testimonial about learning to scan surroundings, think before receiving ball, and mentality training with Coach Patrick" },
+  { src: feedback23, alt: "Player testimonial about amazing training with Patrick, improved scanning, confidence, fun exercises and educational sessions" },
+];
+
+const INITIAL_COUNT = 6;
+
+export const SocialProof = () => {
+  const [showAll, setShowAll] = useState(false);
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  const visibleImages = showAll ? feedbackImages : feedbackImages.slice(0, INITIAL_COUNT);
+
+  return (
+    <section ref={ref} className="py-24 px-6">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.6 }}
+        className="max-w-7xl mx-auto"
+      >
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="text-4xl md:text-5xl font-bold mb-6 text-center text-foreground"
+        >
+          What People Are Saying
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="text-lg md:text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto"
+        >
+          Real messages from players, parents, and coaches about their experience with PB Coaching
+        </motion.p>
+
+        <div className="columns-1 min-[640px]:columns-3 gap-4 space-y-4">
+          {visibleImages.map((image, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.1 * index }}
+              className="break-inside-avoid overflow-hidden rounded-xl"
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                loading="lazy"
+              />
+            </motion.div>
+          ))}
+        </div>
+
+        {!showAll && feedbackImages.length > INITIAL_COUNT && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="flex justify-center mt-12"
+          >
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => setShowAll(true)}
+              className="group"
+            >
+              Load More
+              <ChevronDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+            </Button>
+          </motion.div>
+        )}
+      </motion.div>
+    </section>
+  );
+};
