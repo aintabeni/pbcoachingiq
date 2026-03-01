@@ -1,13 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Youtube } from "lucide-react";
 import { Testimonials } from "@/components/Testimonials";
 import { SocialProof } from "@/components/SocialProof";
-import { FinalCTA } from "@/components/FinalCTA";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 const ThankYou = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12">
       <div className="glass rounded-2xl p-10 md:p-14 max-w-xl w-full fade-in flex flex-col items-center gap-6 text-center">
@@ -18,14 +14,16 @@ const ThankYou = () => {
         <p className="text-foreground/80 text-base md:text-lg max-w-md">
           Thanks for applying. We'll be in touch shortly to schedule your free discovery call and discuss how we can help you level up.
         </p>
-        <Button onClick={() => navigate("/")} size="lg" className="mt-4">
-          Back to Home
-        </Button>
+        <div className="flex justify-center max-w-md w-full mt-4">
+          <InteractiveHoverButton
+            text="Watch Free Content on YouTube"
+            onClick={() => window.open("https://www.youtube.com/@pbcoaching", "_blank")}
+          />
+        </div>
       </div>
 
-      <Testimonials />
+      <Testimonials showCTA={false} />
       <SocialProof />
-      <FinalCTA />
     </div>
   );
 };

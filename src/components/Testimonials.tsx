@@ -84,7 +84,7 @@ const testimonials = [
   },
 ];
 
-export const Testimonials = () => {
+export const Testimonials = ({ showCTA = true }: { showCTA?: boolean }) => {
   const [ref, inView] = useInView({
     threshold: 0.3,
     triggerOnce: true,
@@ -128,17 +128,19 @@ export const Testimonials = () => {
           />
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="flex justify-center max-w-md mx-auto"
-        >
-          <InteractiveHoverButton
-            text="Start Your Training"
-            onClick={() => navigate("/apply")}
-          />
-        </motion.div>
+        {showCTA && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="flex justify-center max-w-md mx-auto"
+          >
+            <InteractiveHoverButton
+              text="Start Your Training"
+              onClick={() => navigate("/apply")}
+            />
+          </motion.div>
+        )}
       </motion.div>
     </section>
   );
