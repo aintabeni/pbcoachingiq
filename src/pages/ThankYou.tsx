@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
+import { Testimonials } from "@/components/Testimonials";
+import { SocialProof } from "@/components/SocialProof";
+import { FinalCTA } from "@/components/FinalCTA";
 
 const ThankYou = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 text-center">
-      <div className="glass rounded-2xl p-10 md:p-14 max-w-xl w-full fade-in flex flex-col items-center gap-6">
+    <div className="min-h-screen flex flex-col items-center px-4 py-12">
+      <div className="glass rounded-2xl p-10 md:p-14 max-w-xl w-full fade-in flex flex-col items-center gap-6 text-center">
         <CheckCircle className="w-16 h-16 text-primary" />
         <h1 className="text-3xl md:text-4xl font-black text-foreground">
           Application Received!
@@ -19,6 +22,10 @@ const ThankYou = () => {
           Back to Home
         </Button>
       </div>
+
+      <Testimonials />
+      <SocialProof />
+      <FinalCTA />
     </div>
   );
 };
