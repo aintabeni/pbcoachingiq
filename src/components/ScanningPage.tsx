@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
-import { Testimonials } from "@/components/Testimonials";
-import { SocialProof } from "@/components/SocialProof";
-import { FinalCTA } from "@/components/FinalCTA";
 
 interface ScanningPageProps {
   preHeadline: string;
@@ -66,9 +63,6 @@ const ScanningPage = ({ preHeadline, headline, description, videoUrl, ctaText }:
         </div>
       </div>
 
-      <Testimonials />
-      <SocialProof />
-      <FinalCTA />
     </div>
   );
 };
