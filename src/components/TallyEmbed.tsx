@@ -1,52 +1,32 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
-const TallyEmbed = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
+const LeadConnectorEmbed = () => {
   useEffect(() => {
-    // Load Tally widget script if not already loaded
-    const scriptSrc = "https://tally.so/widgets/embed.js";
-    const existingScript = document.querySelector(`script[src="${scriptSrc}"]`);
-
-    const loadEmbeds = () => {
-      if (typeof (window as any).Tally !== "undefined") {
-        (window as any).Tally.loadEmbeds();
-      } else {
-        // Fallback: set src on iframes manually
-        containerRef.current
-          ?.querySelectorAll("iframe[data-tally-src]:not([src])")
-          .forEach((iframe) => {
-            (iframe as HTMLIFrameElement).src =
-              (iframe as HTMLIFrameElement).dataset.tallySrc || "";
-          });
-      }
-    };
-
-    if (typeof (window as any).Tally !== "undefined") {
-      loadEmbeds();
-    } else if (!existingScript) {
+    const scriptSrc = "https://link.msgsndr.com/js/form_embed.js";
+    if (!document.querySelector(`script[src="${scriptSrc}"]`)) {
       const s = document.createElement("script");
       s.src = scriptSrc;
-      s.onload = loadEmbeds;
-      s.onerror = loadEmbeds;
       document.body.appendChild(s);
-    } else {
-      loadEmbeds();
     }
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full">
-      <iframe
-        data-tally-src="https://tally.so/embed/MezQ4Y?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&redirectUrl=/thank-you"
-        loading="lazy"
-        width="100%"
-        height="200"
-        frameBorder="0"
-        title="Application to the Accelerator"
-      />
-    </div>
+    <iframe
+      src="https://api.leadconnectorhq.com/widget/form/NLMAcB93KCiyb5gArZRZ"
+      style={{ width: "100%", height: "100%", border: "none", borderRadius: "4px" }}
+      id="inline-NLMAcB93KCiyb5gArZRZ"
+      data-layout='{"id":"INLINE"}'
+      data-trigger-type="alwaysShow"
+      data-activation-type="alwaysActivated"
+      data-deactivation-type="neverDeactivate"
+      data-form-name="PB Coaching Form"
+      data-height="1567"
+      data-layout-iframe-id="inline-NLMAcB93KCiyb5gArZRZ"
+      data-form-id="NLMAcB93KCiyb5gArZRZ"
+      title="PB Coaching Form"
+      className="min-h-[1567px]"
+    />
   );
 };
 
-export default TallyEmbed;
+export default LeadConnectorEmbed;
