@@ -17,7 +17,7 @@ const ThankYou = () => {
         <div className="flex justify-center max-w-md w-full mt-4">
           <InteractiveHoverButton
             text="Watch Free Content on YouTube"
-            onClick={() => window.open("https://www.youtube.com/@pb_coaching.iq", "_blank")}
+            onClick={() => window.open("https://www.youtube.com/@pb_coaching_iq", "_blank")}
           />
         </div>
       </div>
