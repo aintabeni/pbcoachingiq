@@ -15,6 +15,7 @@ const BookingEmbed = () => {
   }, [handleMessage]);
 
   useEffect(() => {
+    const container = containerRef.current;
     if (!container) return;
 
     // Create iframe imperatively so React doesn't track it
