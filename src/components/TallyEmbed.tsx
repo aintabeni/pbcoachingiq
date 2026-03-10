@@ -1,7 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 const BookingEmbed = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMessage = useCallback((e: MessageEvent) => {
+    if (e.data?.type === "pb-booking-complete") {
+      window.location.href = "/thank-you";
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [handleMessage]);
 
   useEffect(() => {
     const container = containerRef.current;

@@ -1,37 +1,52 @@
 
 
-## Problem
+# Add Testimonials, Social Proof, and CTA Sections
 
-The booking widget (LeadConnector iframe) shows calendar links (Google, Outlook, iCloud) after booking. Currently:
-1. The calendar links take users away from the page (to LeadConnector backend URLs)
-2. After booking, users aren't redirected to `/thank-you`
+## Overview
+Port the **Testimonials** (circular carousel), **SocialProof** (feedback screenshots masonry grid), and **FinalCTA** sections from the [mind-game-dynamics](/projects/86828de2-0db5-4c36-bfd8-ee70b5617c22) project into this quiz funnel. These will be added below the video on the ScanningPage layout so every training plan page gets social proof + a CTA.
 
-Since the widget is in a **cross-origin iframe**, we cannot directly modify its DOM or intercept its links.
+---
 
-## Solution
+## What Gets Added
 
-Use the GHL redirect setting to load `/thank-you` **inside the iframe** after booking. Since the iframe will then be on **our domain**, the Thank You page can detect it's inside an iframe and tell the parent window to navigate.
+1. **Circular Testimonials Carousel** -- rotating player photos with quotes (11 players: Ahmed, Henrik, Erik-Aksel, Elias, Matheo, Filip, Ary, Emilie & Hannah, Anmar, Phillip, Muhammed)
+2. **Social Proof Grid** -- masonry layout of 23 feedback screenshots from parents/players/coaches with a "Load More" button
+3. **Final CTA** -- motivational closing copy with the InteractiveHoverButton (per project style guide)
 
-### Step 1: ThankYou.tsx — detect iframe and notify parent
+---
 
-Add a `useEffect` at the top of the ThankYou component that checks `window.self !== window.top`. If it's inside an iframe, send a `postMessage` to the parent window and stop rendering the full page (the parent will navigate to `/thank-you` as the top-level page).
+## Technical Steps
 
-### Step 2: TallyEmbed.tsx — listen for the message
+### 1. Install dependencies
+- `framer-motion` -- animations for testimonials and social proof
+- `react-intersection-observer` -- scroll-triggered animations
 
-Add a `message` event listener in the BookingEmbed component. When it receives the navigation message from the iframe, use `window.location.href = '/thank-you'` to navigate the parent page.
+### 2. Copy all assets from the other project
+- 11 player avatar images (ahmed-ibrahim.png, henrik-hatlen.jpg, etc.)
+- 23 feedback screenshot images (feedback-1.jpg through feedback-23.png)
 
-### Step 3: GHL Configuration (user action)
+### 3. Create components
 
-You'll need to set the booking widget's **On Submit → Redirect to URL** to:
-`https://pbcoachingiq.lovable.app/thank-you`
+**`src/components/ui/circular-testimonials.tsx`**
+- Port the CircularTestimonials component from the other project
+- Replace `react-icons` arrow icons with `lucide-react` (ArrowLeft/ArrowRight) since it's already installed
 
-This ensures the iframe loads our thank-you page after booking, which triggers the parent navigation.
+**`src/components/Testimonials.tsx`**
+- Port the testimonials section with all 11 player entries
+- Swap the CTA button from ButtonColorful to InteractiveHoverButton linking to `/apply`
 
-### About the calendar links
+**`src/components/SocialProof.tsx`**
+- Port the feedback screenshot masonry grid
+- Shows 6 initially with "Load More" to reveal all 23
 
-The calendar links (Google Calendar, Outlook, iCloud) open in new tabs (`target="_blank"`), so they'll continue to work — users can click them to add the event to their calendar, and the confirmation page will still redirect to `/thank-you` in the main window. No changes needed for the calendar links themselves.
+**`src/components/FinalCTA.tsx`**
+- Motivational closing copy ("Take Control of the Game")
+- InteractiveHoverButton linking to `/apply`
 
-### Files changed
-- `src/pages/ThankYou.tsx` — add iframe detection + postMessage
-- `src/components/TallyEmbed.tsx` — add message listener + navigation
+### 4. Add circular testimonials CSS to `src/index.css`
+- Add the `.circular-testimonial-*` styles needed for the carousel layout
+
+### 5. Update `src/components/ScanningPage.tsx`
+- Import and render Testimonials, SocialProof, and FinalCTA sections below the video and existing CTA
+- This means all position-specific pages (scanning, technique, conditioning) automatically get these sections
 

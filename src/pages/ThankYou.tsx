@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import { CheckCircle, Youtube } from "lucide-react";
 import { Testimonials } from "@/components/Testimonials";
 import { SocialProof } from "@/components/SocialProof";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 
 const ThankYou = () => {
+  useEffect(() => {
+    if (window.self !== window.top) {
+      window.parent.postMessage({ type: "pb-booking-complete" }, "*");
+    }
+  }, []);
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12">
       <div className="glass rounded-2xl p-10 md:p-14 max-w-xl w-full fade-in flex flex-col items-center gap-6 text-center">
