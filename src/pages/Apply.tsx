@@ -10,7 +10,7 @@ const Apply = () => (
         Apply Now
       </h1>
       <p className="text-center text-foreground/80 text-base md:text-lg mb-10 max-w-2xl mx-auto fade-in">
-        Fill in the form below and we'll contact you to schedule a free discovery call about where you are in your football journey and how we can help you improve.
+        Pick a time below to book your free discovery call. We'll discuss where you are in your football journey and how we can help you improve.
       </p>
       <div className="fade-in glass rounded-2xl p-6 md:p-8">
         <TallyEmbed />
