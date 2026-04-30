@@ -14,6 +14,7 @@ import TechniqueAttackers from "./pages/TechniqueAttackers";
 import TechniqueMidfielders from "./pages/TechniqueMidfielders";
 import TechniqueDefenders from "./pages/TechniqueDefenders";
 import Conditioning from "./pages/Conditioning";
+import Training from "./pages/Training";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/technique-midfielders" element={<TechniqueMidfielders />} />
           <Route path="/technique-defenders" element={<TechniqueDefenders />} />
           <Route path="/conditioning" element={<Conditioning />} />
+          <Route path="/training" element={<Training />} />
           <Route path="/index" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
