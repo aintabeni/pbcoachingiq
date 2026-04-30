@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import vslThumbnail from "@/assets/patrick-training.jpg";
 import TrainingMarquee from "@/components/TrainingMarquee";
 import TrainingDiscover from "@/components/TrainingDiscover";
@@ -8,13 +6,18 @@ import TrainingHost from "@/components/TrainingHost";
 import TrainingFinalCTA from "@/components/TrainingFinalCTA";
 import TrainingFooter from "@/components/TrainingFooter";
 import DotBackground from "@/components/DotBackground";
+import {
+  RegisterModalProvider,
+  useRegisterModal,
+} from "@/components/training/RegisterModalContext";
+import RegisterModal from "@/components/training/RegisterModal";
 
 const EVENT_DATE = "MAY 30TH, 2026 · 7:00 PM EST";
 const SHORT_DATE = "LIVE · MAY 30";
 
-const Training = () => {
-  const navigate = useNavigate();
-  const goRegister = () => navigate("/apply");
+const TrainingContent = () => {
+  const { openModal } = useRegisterModal();
+  const goRegister = () => openModal();
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
@@ -120,8 +123,15 @@ const Training = () => {
         <TrainingFinalCTA />
       </div>
       <TrainingFooter />
+      <RegisterModal />
     </div>
   );
 };
+
+const Training = () => (
+  <RegisterModalProvider>
+    <TrainingContent />
+  </RegisterModalProvider>
+);
 
 export default Training;
