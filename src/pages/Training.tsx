@@ -6,6 +6,7 @@ import TrainingDiscover from "@/components/TrainingDiscover";
 import TrainingForYou from "@/components/TrainingForYou";
 import TrainingHost from "@/components/TrainingHost";
 import TrainingFinalCTA from "@/components/TrainingFinalCTA";
+import TrainingFooter from "@/components/TrainingFooter";
 import DotBackground from "@/components/DotBackground";
 
 const EVENT_DATE = "MAY 30TH, 2026 · 7:00 PM EST";
@@ -118,6 +119,7 @@ const Training = () => {
         <TrainingHost />
         <TrainingFinalCTA />
       </div>
+      <TrainingFooter />
     </div>
   );
 };
