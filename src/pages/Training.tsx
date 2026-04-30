@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import vslThumbnail from "@/assets/patrick-training.jpg";
+import TrainingMarquee from "@/components/TrainingMarquee";
 
 const EVENT_DATE = "MAY 30TH, 2026 · 7:00 PM EST";
 const SHORT_DATE = "LIVE · MAY 30";
@@ -10,7 +11,8 @@ const Training = () => {
   const goRegister = () => navigate("/apply");
 
   return (
-    <div className="min-h-screen flex items-center px-4 py-12 md:py-20">
+    <div className="min-h-screen overflow-x-hidden">
+      <div className="flex items-center px-4 py-12 md:py-20">
       <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* LEFT */}
         <div className="fade-in">
@@ -102,6 +104,8 @@ const Training = () => {
           </div>
         </div>
       </div>
+      </div>
+      <TrainingMarquee />
     </div>
   );
 };
