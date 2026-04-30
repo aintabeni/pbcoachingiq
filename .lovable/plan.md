@@ -1,52 +1,39 @@
+## Add `/training` Landing Page
 
+A new standalone landing page for an upcoming live training event, themed with the existing yellow brand color and using three Google fonts (Space Grotesk, Inter, Manrope).
 
-# Add Testimonials, Social Proof, and CTA Sections
+### What it looks like
 
-## Overview
-Port the **Testimonials** (circular carousel), **SocialProof** (feedback screenshots masonry grid), and **FinalCTA** sections from the [mind-game-dynamics](/projects/86828de2-0db5-4c36-bfd8-ee70b5617c22) project into this quiz funnel. These will be added below the video on the ScanningPage layout so every training plan page gets social proof + a CTA.
+Two-column hero (stacks on mobile), matching the reference layout but recolored from blue → yellow:
 
----
+- Left column:
+  - Eyebrow: "THE SMART PLAYER BLUEPRINT" (yellow, Space Grotesk, uppercase, tracked)
+  - Meta row: red live dot + "LIVE TRAINING" · "MAY 30TH, 2026 · 7:00 PM EST" (Manrope, muted)
+  - Headline (Space Grotesk, black weight, large, mixed white + yellow):
+    "How to stop being the BAD PLAYER who crumbles under pressure and become the STAR PLAYER your team depends on. IN UNDER 60 MINUTES I WILL GIVE YOU THE BLUEPRINT."
+    (the highlighted phrases rendered in yellow)
+  - Sub-headline (Inter): "I went from the 9th division in Norway to a professional contract in Romania by changing how I think. I will show you how to do the same without being the fastest player, the strongest kid, or a natural talent."
+  - CTA button (Manrope, yellow filled, rounded): "SAVE MY FREE SPOT →" with small caption beneath "↓ MAY 30TH, 2026 · 7:00 PM EST"
+  - Social proof row: small avatar stack + "125+ already registered" (Inter)
+- Right column:
+  - Decorative card with a "LIVE · MAY 30" pill in the top-left. Uses a placeholder image (existing `vsl-thumbnail.png`) inside a rounded, subtly bordered card with yellow glow — keeps the same compositional weight as the reference image without needing a new asset.
 
-## What Gets Added
+Background uses the existing dark theme (no grid overlay needed; the existing `cool-yellow-gradient.avif` body bg already provides depth).
 
-1. **Circular Testimonials Carousel** -- rotating player photos with quotes (11 players: Ahmed, Henrik, Erik-Aksel, Elias, Matheo, Filip, Ary, Emilie & Hannah, Anmar, Phillip, Muhammed)
-2. **Social Proof Grid** -- masonry layout of 23 feedback screenshots from parents/players/coaches with a "Load More" button
-3. **Final CTA** -- motivational closing copy with the InteractiveHoverButton (per project style guide)
+### Files
 
----
+1. **`src/index.css`** — extend the Google Fonts `@import` to also load Space Grotesk (400–800) and Manrope (400–800). Add three utility classes: `.font-space-grotesk`, `.font-inter`, `.font-manrope`.
 
-## Technical Steps
+2. **`src/pages/Training.tsx`** (new) — the page component described above. CTA links to `/apply` (consistent with other VSL pages per the existing pattern). Uses Tailwind + the new font utility classes. Reuses `glass`, `text-gradient-yellow`, `glow-yellow`, and `fade-in` utilities already in the project.
 
-### 1. Install dependencies
-- `framer-motion` -- animations for testimonials and social proof
-- `react-intersection-observer` -- scroll-triggered animations
+3. **`src/App.tsx`** — register the new route:
+   ```tsx
+   <Route path="/training" element={<Training />} />
+   ```
 
-### 2. Copy all assets from the other project
-- 11 player avatar images (ahmed-ibrahim.png, henrik-hatlen.jpg, etc.)
-- 23 feedback screenshot images (feedback-1.jpg through feedback-23.png)
+### Notes / decisions
 
-### 3. Create components
-
-**`src/components/ui/circular-testimonials.tsx`**
-- Port the CircularTestimonials component from the other project
-- Replace `react-icons` arrow icons with `lucide-react` (ArrowLeft/ArrowRight) since it's already installed
-
-**`src/components/Testimonials.tsx`**
-- Port the testimonials section with all 11 player entries
-- Swap the CTA button from ButtonColorful to InteractiveHoverButton linking to `/apply`
-
-**`src/components/SocialProof.tsx`**
-- Port the feedback screenshot masonry grid
-- Shows 6 initially with "Load More" to reveal all 23
-
-**`src/components/FinalCTA.tsx`**
-- Motivational closing copy ("Take Control of the Game")
-- InteractiveHoverButton linking to `/apply`
-
-### 4. Add circular testimonials CSS to `src/index.css`
-- Add the `.circular-testimonial-*` styles needed for the carousel layout
-
-### 5. Update `src/components/ScanningPage.tsx`
-- Import and render Testimonials, SocialProof, and FinalCTA sections below the video and existing CTA
-- This means all position-specific pages (scanning, technique, conditioning) automatically get these sections
-
+- CTA destination: routes to `/apply` (the booking widget), matching every other VSL/landing CTA in the codebase. If you'd rather it scroll to an on-page registration form or open a different URL, say the word.
+- Avatars in the social-proof row will use 3 small colored circles with initials (no new image assets needed).
+- The right-side "person" image from your reference is replaced with the existing `vsl-thumbnail.png` placeholder so we don't need to source a new photo. Easy to swap later by uploading a new image.
+- Date is hard-coded to **May 30, 2026 · 7:00 PM EST** as requested.
