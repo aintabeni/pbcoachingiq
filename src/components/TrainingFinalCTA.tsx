@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { useRegisterModal } from "@/components/training/RegisterModalContext";
 
 const TrainingFinalCTA = () => {
-  const navigate = useNavigate();
+  const { openModal } = useRegisterModal();
 
   return (
     <section className="relative z-[2] px-4 md:px-8 py-32 md:py-40">
@@ -15,7 +15,7 @@ const TrainingFinalCTA = () => {
         <div className="mt-10 md:mt-14 w-full max-w-sm">
           <InteractiveHoverButton
             text="Join The Free Training"
-            onClick={() => navigate("/apply")}
+            onClick={openModal}
           />
         </div>
 
