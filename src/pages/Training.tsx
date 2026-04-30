@@ -91,7 +91,7 @@ const Training = () => {
 
         {/* RIGHT */}
         <div className="fade-in relative">
-          <div className="relative rounded-3xl overflow-hidden border border-border glow-yellow aspect-[4/5] max-w-md mx-auto lg:max-w-none lg:ml-auto">
+          <div className="relative rounded-3xl overflow-hidden border border-border glow-yellow aspect-[4/5] max-w-xs sm:max-w-sm lg:max-w-none mx-auto lg:ml-auto lg:max-h-[80vh]">
             <img
               src={vslThumbnail}
               alt="Smart Player Blueprint live training"
