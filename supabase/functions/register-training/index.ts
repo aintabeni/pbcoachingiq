@@ -57,7 +57,7 @@ Deno.serve(async (req) => {
       firstName,
       email,
       source: "Free Training Registration",
-      tags: ["free-training", "smart-player-blueprint"],
+      tags: ["free-training", "smart-player-blueprint", "pbcoaching-webinar-registered"],
     };
     if (phone) ghlPayload.phone = phone;
 
