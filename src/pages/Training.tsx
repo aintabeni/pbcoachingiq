@@ -109,9 +109,11 @@ const Training = () => {
         </div>
       </div>
       </div>
-      <TrainingMarquee />
-      <TrainingDiscover />
-      <TrainingForYou />
+      <div className="relative z-10">
+        <TrainingMarquee />
+        <TrainingDiscover />
+        <TrainingForYou />
+      </div>
     </div>
   );
 };
