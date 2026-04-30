@@ -109,7 +109,7 @@ const Training = () => {
         </div>
       </div>
       </div>
-      <div className="relative z-10">
+      <div className="relative z-10 space-y-16 md:space-y-24">
         <TrainingMarquee />
         <TrainingDiscover />
         <TrainingForYou />
