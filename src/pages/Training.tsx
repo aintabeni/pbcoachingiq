@@ -16,8 +16,8 @@ const Training = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <DotBackground />
-      <div className="relative z-10 flex items-center px-4 py-12 md:py-20">
-      <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 flex items-center px-4 sm:px-6 lg:px-12 xl:px-20 py-12 md:py-20 lg:py-8 lg:min-h-screen">
+      <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-12 items-center">
         {/* LEFT */}
         <div className="fade-in">
           <p className="font-space-grotesk text-primary font-semibold text-sm md:text-base tracking-[0.25em] uppercase mb-6">
