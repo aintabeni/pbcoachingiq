@@ -7,18 +7,18 @@ import { cn } from "@/lib/utils";
 const DotBackground = () => {
   return (
     <div
-      className="fixed inset-0 -z-10 pointer-events-none bg-background"
+      className="fixed inset-0 pointer-events-none bg-background"
+      style={{ zIndex: 0 }}
       aria-hidden="true"
     >
       <div
         className={cn(
           "absolute inset-0",
-          "[background-size:20px_20px]",
-          "[background-image:radial-gradient(hsl(var(--foreground)/0.18)_1px,transparent_1px)]"
+          "[background-size:22px_22px]",
+          "[background-image:radial-gradient(hsl(var(--foreground)/0.22)_1.2px,transparent_1.2px)]",
+          "[mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"
         )}
       />
-      {/* Radial fade so the dots melt into the background at the edges */}
-      <div className="pointer-events-none absolute inset-0 bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_85%)]" />
     </div>
   );
 };
