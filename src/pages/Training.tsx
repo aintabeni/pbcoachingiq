@@ -4,7 +4,7 @@ import vslThumbnail from "@/assets/patrick-training.jpg";
 import TrainingMarquee from "@/components/TrainingMarquee";
 import TrainingDiscover from "@/components/TrainingDiscover";
 import TrainingForYou from "@/components/TrainingForYou";
-import InteractiveGridBackground from "@/components/InteractiveGridBackground";
+import DotBackground from "@/components/DotBackground";
 
 const EVENT_DATE = "MAY 30TH, 2026 · 7:00 PM EST";
 const SHORT_DATE = "LIVE · MAY 30";
@@ -15,7 +15,7 @@ const Training = () => {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background">
-      <InteractiveGridBackground />
+      <DotBackground />
       <div className="relative flex items-center px-4 py-12 md:py-20">
       <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* LEFT */}
