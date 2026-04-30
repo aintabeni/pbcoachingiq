@@ -39,8 +39,8 @@ const InteractiveGridBackground = () => {
       const cols = Math.ceil(width / CELL) + 1;
       const rows = Math.ceil(height / CELL) + 1;
 
-      // Base grid lines (subtle)
-      ctx.strokeStyle = "hsla(60, 10%, 95%, 0.06)";
+      // Base grid lines
+      ctx.strokeStyle = "hsla(60, 10%, 95%, 0.12)";
       ctx.lineWidth = 1;
       ctx.beginPath();
       for (let i = 0; i <= cols; i++) {
