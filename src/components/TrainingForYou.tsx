@@ -1,7 +1,7 @@
 import { Check, X } from "lucide-react";
 
 const FOR_YOU = [
-  "You play competitive football and want to stand out on the pitch",
+  "You play competitive football (or want to play) and want to stand out on the pitch",
   "You feel you've got more in you but training drills aren't translating to games",
   "You want to think the game faster and play with more confidence under pressure",
   "You're ready to upgrade your football IQ, not just your physical stats",
