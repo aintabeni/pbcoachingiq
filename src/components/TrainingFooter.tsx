@@ -25,7 +25,7 @@ const TrainingFooter = () => {
             ⚡ Don't Waste Another Season on the Bench
           </p>
           <p className="font-inter mt-3 text-xs md:text-sm text-foreground/50 max-w-xl mx-auto leading-relaxed">
-            Every week without a system is a week your competition gets ahead. Spots are limited — claim yours before registration closes.
+            Every week without a system is a week your competition gets ahead. Spots are limited. Claim yours before registration closes.
           </p>
         </div>
       </div>
