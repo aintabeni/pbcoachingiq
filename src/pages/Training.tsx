@@ -20,11 +20,11 @@ const Training = () => {
       <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-12 items-center">
         {/* LEFT */}
         <div className="fade-in">
-          <p className="font-space-grotesk text-primary font-semibold text-sm md:text-base tracking-[0.25em] uppercase mb-6">
+          <p className="font-space-grotesk text-primary font-semibold text-sm md:text-base tracking-[0.25em] uppercase mb-6 lg:mb-3">
             The Smart Player Blueprint
           </p>
 
-          <div className="font-manrope flex items-center gap-3 text-xs md:text-sm uppercase tracking-widest text-foreground/70 mb-8">
+          <div className="font-manrope flex items-center gap-3 text-xs md:text-sm uppercase tracking-widest text-foreground/70 mb-8 lg:mb-4">
             <span className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
@@ -67,7 +67,7 @@ const Training = () => {
             </span>
           </button>
 
-          <div className="flex items-center gap-3 mt-8">
+          <div className="flex items-center gap-3 mt-8 lg:mt-4">
             <div className="flex -space-x-2">
               {[
                 { bg: "bg-primary", label: "JM" },
@@ -91,7 +91,7 @@ const Training = () => {
 
         {/* RIGHT */}
         <div className="fade-in relative">
-          <div className="relative rounded-3xl overflow-hidden border border-border glow-yellow aspect-[4/5] max-w-md mx-auto lg:max-w-none lg:ml-auto">
+          <div className="relative rounded-3xl overflow-hidden border border-border glow-yellow aspect-[4/5] max-w-md mx-auto lg:max-w-none lg:ml-auto lg:max-h-[85vh] lg:w-auto">
             <img
               src={vslThumbnail}
               alt="Smart Player Blueprint live training"
