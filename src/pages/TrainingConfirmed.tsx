@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import DotBackground from "@/components/DotBackground";
-import { Calendar, ArrowLeft } from "lucide-react";
+import { Calendar, ArrowLeft, Play } from "lucide-react";
 
 const EVENT_LINE = "LIVE · MAY 30TH, 2026 · 7:00 PM EST";
 const EVENT_TITLE = "The Smart Player Blueprint · Live Training with Patrick";
@@ -110,8 +110,29 @@ const TrainingConfirmed = () => {
 
           {/* Intro */}
           <p className="font-inter mt-8 text-center text-base md:text-lg text-foreground/75 leading-relaxed max-w-2xl mx-auto">
-            On May 30th at 7PM EST I'm walking you through the exact blueprint I used to go from the 9th division in Norway to a professional contract in Romania. Most people will skim the reminder emails and forget. Don't. The players who prepare before the live get way more out of it.
+            I recorded a short video walking you through exactly what we're covering on May 30th at 7PM EST. Most people will skim the reminder emails and forget. Don't. The players who watch this before the live get way more out of it.
           </p>
+
+          {/* Video placeholder */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] backdrop-blur-sm">
+              <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-white/[0.04] to-transparent">
+                  <button
+                    type="button"
+                    aria-label="Play video"
+                    className="group relative flex h-20 w-20 md:h-24 md:w-24 items-center justify-center rounded-full bg-primary/15 border border-primary/40 backdrop-blur-sm transition-transform hover:scale-105 glow-yellow"
+                  >
+                    <span className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+                    <Play className="relative h-8 w-8 md:h-10 md:w-10 text-primary fill-primary ml-1" strokeWidth={1.5} />
+                  </button>
+                  <p className="font-space-grotesk uppercase tracking-[0.25em] text-xs md:text-sm text-foreground/60 font-semibold">
+                    Watch this first · 3 min
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Add to Calendar card */}
           <div className="mt-12 max-w-2xl mx-auto rounded-2xl border border-primary/20 bg-white/[0.03] backdrop-blur-sm p-6 md:p-8 glow-yellow">
@@ -151,21 +172,20 @@ const TrainingConfirmed = () => {
               {STEPS.map((s) => (
                 <div
                   key={s.n}
-                  className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 overflow-hidden"
+                  className="relative rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 md:p-7 flex flex-col"
                 >
-                  <span
-                    aria-hidden
-                    className="font-space-grotesk absolute -top-4 -right-1 text-7xl md:text-8xl font-black text-gradient-yellow opacity-20 select-none pointer-events-none leading-none"
-                  >
-                    {s.n}
-                  </span>
-                  <p className="font-manrope text-xs uppercase tracking-[0.25em] text-primary/90 font-semibold relative">
-                    Step {s.n}
-                  </p>
-                  <h3 className="font-space-grotesk mt-3 text-lg md:text-xl font-bold uppercase tracking-tight text-foreground relative">
+                  <div className="flex items-center gap-3">
+                    <span className="font-space-grotesk inline-flex items-center justify-center h-9 w-9 rounded-lg bg-primary/10 border border-primary/30 text-sm font-black text-gradient-yellow">
+                      {s.n}
+                    </span>
+                    <p className="font-manrope text-[10px] uppercase tracking-[0.25em] text-foreground/50 font-semibold">
+                      Step {s.n}
+                    </p>
+                  </div>
+                  <h3 className="font-space-grotesk mt-5 text-lg md:text-xl font-bold uppercase tracking-tight text-foreground">
                     {s.title}
                   </h3>
-                  <p className="font-inter mt-3 text-sm text-foreground/70 leading-relaxed relative">
+                  <p className="font-inter mt-3 text-sm text-foreground/70 leading-relaxed">
                     {s.body}
                   </p>
                 </div>
