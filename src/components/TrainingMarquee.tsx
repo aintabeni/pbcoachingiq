@@ -92,7 +92,7 @@ const TrainingMarquee = () => {
       style={{
         position: "relative",
         height: 280,
-        marginTop: -60,
+        marginTop: 40,
         marginBottom: 60,
         overflow: "visible",
         zIndex: 30,
