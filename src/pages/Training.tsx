@@ -11,7 +11,8 @@ const Training = () => {
   const goRegister = () => navigate("/apply");
 
   return (
-    <div className="min-h-screen flex items-center px-4 py-12 md:py-20">
+    <div className="min-h-screen overflow-x-hidden">
+      <div className="flex items-center px-4 py-12 md:py-20">
       <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* LEFT */}
         <div className="fade-in">
