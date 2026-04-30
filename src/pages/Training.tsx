@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import vslThumbnail from "@/assets/patrick-training.jpg";
 import TrainingMarquee from "@/components/TrainingMarquee";
+import TrainingDiscover from "@/components/TrainingDiscover";
 import InteractiveGridBackground from "@/components/InteractiveGridBackground";
 
 const EVENT_DATE = "MAY 30TH, 2026 · 7:00 PM EST";
@@ -108,6 +109,7 @@ const Training = () => {
       </div>
       </div>
       <TrainingMarquee />
+      <TrainingDiscover />
     </div>
   );
 };
