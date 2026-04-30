@@ -52,13 +52,13 @@ const Training = () => {
 
           <button
             onClick={goRegister}
-            className="font-manrope group inline-flex flex-col items-start gap-2 bg-primary text-primary-foreground rounded-2xl px-8 py-5 font-bold text-base md:text-lg uppercase tracking-wider glow-yellow transition-transform hover:scale-[1.02]"
+            className="font-manrope group bg-gradient-to-br from-[hsl(var(--primary))] via-[hsl(var(--primary)/0.85)] to-[hsl(var(--primary))] text-primary-foreground rounded-md border-0 cursor-pointer glow-yellow transition-transform hover:scale-[1.02]"
+            style={{ padding: "18px 40px" }}
           >
-            <span className="inline-flex items-center gap-2">
-              Save My Free Spot
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <span className="block font-bold uppercase" style={{ fontSize: "12px", letterSpacing: "0.2em" }}>
+              Save My Free Spot →
             </span>
-            <span className="text-xs font-medium tracking-wide opacity-80 normal-case">
+            <span className="block opacity-70" style={{ fontSize: "10px", letterSpacing: "0.1em", marginTop: "5px" }}>
               ↓ {EVENT_DATE}
             </span>
           </button>
