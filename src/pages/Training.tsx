@@ -104,6 +104,8 @@ const Training = () => {
           </div>
         </div>
       </div>
+      </div>
+      <TrainingMarquee />
     </div>
   );
 };
