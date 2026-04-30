@@ -53,7 +53,7 @@ const Training = () => {
           <p className="font-inter text-foreground/75 text-base md:text-lg leading-relaxed max-w-xl mb-10">
             I went from the 9th division in Norway to a professional contract
             in Romania by changing how I think. I will show you how to do the
-            same — without being the fastest player, the strongest kid, or a
+            same, without being the fastest player, the strongest kid, or a
             natural talent.
           </p>
 
