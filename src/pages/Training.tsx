@@ -36,15 +36,15 @@ const Training = () => {
             <span>{EVENT_DATE}</span>
           </div>
 
+          <p className="font-space-grotesk text-gradient-yellow font-bold uppercase tracking-[0.15em] text-xs md:text-sm mb-4">
+            In under 60 minutes I will give you the blueprint
+          </p>
           <h1 className="font-space-grotesk text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight uppercase mb-8 text-foreground">
             How to stop being the{" "}
             <span className="text-gradient-yellow">"bad" player</span> who
             crumbles under pressure and become the{" "}
             <span className="text-gradient-yellow">star player</span> your team
-            depends on.{" "}
-            <span className="text-gradient-yellow">
-              In under 60 minutes I will give you the blueprint.
-            </span>
+            depends on.
           </h1>
 
           <p className="font-inter text-foreground/75 text-base md:text-lg leading-relaxed max-w-xl mb-10">
