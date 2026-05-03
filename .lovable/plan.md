@@ -1,20 +1,15 @@
-## Add `pbcoaching-webinar-registered` tag to training registrations
+## Update registration tags
 
-### What's happening today
-When a user signs up via the training registration form, `supabase/functions/register-training/index.ts` upserts the contact into GoHighLevel with these tags:
-- `free-training`
-- `smart-player-blueprint`
+Remove `free-training` and `smart-player-blueprint` from the tags array in the edge function, keeping only:
+- `pbcoaching`
+- `pbcoaching-webinar-registered`
 
-### Change
-Add a third tag `pbcoaching-webinar-registered` so every new/updated contact from this flow is tagged with it in GHL.
-
-Updated array:
+### File to edit
+- `supabase/functions/register-training/index.ts` — change the tags line to:
 ```ts
-tags: ["free-training", "smart-player-blueprint", "pbcoaching-webinar-registered"],
+tags: ["pbcoaching", "pbcoaching-webinar-registered"],
 ```
 
-### Files to edit
-- `supabase/functions/register-training/index.ts` — append the new tag
+No other data changes needed — the function already only sends firstName, email, phone (optional), locationId, source, and tags. No skill or investment data is included.
 
-### Deploy
-The edge function will be redeployed automatically after the change. New registrations from `/training` will carry all three tags in GHL going forward (existing contacts won't be retroactively tagged).
+The edge function will be redeployed automatically.
