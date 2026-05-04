@@ -1,11 +1,13 @@
-import { useState, useCallback, useRef, useEffect, FormEvent, KeyboardEvent } from "react";
+import { useState, useCallback, useRef, useEffect, KeyboardEvent } from "react";
 import { z } from "zod";
 import { ChevronUp, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { toast } from "@/hooks/use-toast";
 
-/* ── Schema ── */
+const BUDGET_OPTIONS = ["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"] as const;
+const POSITIONS = ["Attacker", "Midfielder", "Defender", "Goalkeeper"] as const;
+
 const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
@@ -15,18 +17,18 @@ const schema = z.object({
   }),
   age: z.number({ invalid_type_error: "Enter your age" }).int().min(5, "Enter a valid age").max(99, "Enter a valid age"),
   goals: z.string().trim().min(1, "Tell us what you want to achieve").max(2000),
+  budget: z.enum(["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"], {
+    errorMap: () => ({ message: "Select your budget" }),
+  }),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const POSITIONS = ["Attacker", "Midfielder", "Defender", "Goalkeeper"] as const;
-
-/* ── Step definitions ── */
 interface Step {
   key: keyof FormData;
   label: string;
   sublabel?: string;
-  type: "text" | "email" | "tel" | "select" | "number" | "textarea";
+  type: "text" | "email" | "tel" | "select" | "number" | "textarea" | "budget";
   placeholder?: string;
   required?: boolean;
 }
@@ -38,15 +40,13 @@ const STEPS: Step[] = [
   { key: "position", label: "What position do you play?", type: "select", required: true },
   { key: "age", label: "How old are you?", type: "number", placeholder: "e.g. 17", required: true },
   { key: "goals", label: "What do you want to achieve?", sublabel: "Be specific — it helps us prepare for your call.", type: "textarea", placeholder: "e.g. I want to improve my first touch and play at a higher level…", required: true },
+  { key: "budget", label: "How much are you willing to invest in your development?", type: "budget", required: true },
 ];
 
-interface ApplicationFormProps {
-  onComplete: () => void;
-}
+const CALENDLY_URL = "https://calendly.com/pbcoachingiq/30min";
 
-const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
+const ApplicationForm = () => {
   const [step, setStep] = useState(0);
-  const [direction, setDirection] = useState<"up" | "down">("up");
   const [formData, setFormData] = useState<Partial<FormData>>({});
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -54,10 +54,9 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
 
   const current = STEPS[step];
   const totalSteps = STEPS.length;
-  const progress = ((step) / totalSteps) * 100;
+  const progress = (step / totalSteps) * 100;
 
   useEffect(() => {
-    // Auto-focus the input on step change
     const t = setTimeout(() => inputRef.current?.focus(), 350);
     return () => clearTimeout(t);
   }, [step]);
@@ -74,11 +73,12 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
     const val = formData[key];
 
     if (current.required && (val === undefined || val === "")) {
-      setError(key === "position" ? "Pick your position" : "This field is required");
+      if (key === "position") { setError("Pick your position"); return false; }
+      if (key === "budget") { setError("Select your budget"); return false; }
+      setError("This field is required");
       return false;
     }
 
-    // Per-field validation
     if (key === "email") {
       const r = z.string().email().safeParse(val);
       if (!r.success) { setError("Enter a valid email"); return false; }
@@ -92,33 +92,7 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
     return true;
   }, [current, formData]);
 
-  const goNext = useCallback(() => {
-    if (!validateStep()) return;
-    if (step < totalSteps - 1) {
-      setDirection("up");
-      setStep((s) => s + 1);
-    } else {
-      handleSubmit();
-    }
-  }, [step, totalSteps, validateStep]);
-
-  const goBack = () => {
-    if (step > 0) {
-      setDirection("down");
-      setStep((s) => s - 1);
-      setError("");
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "Enter" && current.type !== "textarea") {
-      e.preventDefault();
-      goNext();
-    }
-  };
-
   const handleSubmit = async () => {
-    // Coerce age to number before validation
     const payload = { ...formData, age: Number(formData.age) };
     const parsed = schema.safeParse(payload);
     if (!parsed.success) {
@@ -139,7 +113,8 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
         return;
       }
 
-      onComplete();
+      // Redirect to Calendly
+      window.location.href = CALENDLY_URL;
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
       toast({ title: "Couldn't submit", description: msg, variant: "destructive" });
@@ -148,7 +123,29 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
     }
   };
 
-  /* ── Render helpers ── */
+  const goNext = useCallback(() => {
+    if (!validateStep()) return;
+    if (step < totalSteps - 1) {
+      setStep((s) => s + 1);
+    } else {
+      handleSubmit();
+    }
+  }, [step, totalSteps, validateStep]);
+
+  const goBack = () => {
+    if (step > 0) {
+      setStep((s) => s - 1);
+      setError("");
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Enter" && current.type !== "textarea") {
+      e.preventDefault();
+      goNext();
+    }
+  };
+
   const renderInput = () => {
     const baseClass =
       "w-full bg-white/[0.04] border border-white/10 rounded-lg px-5 py-4 text-foreground text-lg placeholder:text-foreground/30 focus:outline-none focus:border-primary/60 transition-colors";
@@ -170,6 +167,30 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
                 }`}
               >
                 {pos}
+              </button>
+            );
+          })}
+        </div>
+      );
+    }
+
+    if (current.type === "budget") {
+      return (
+        <div className="grid grid-cols-1 gap-3">
+          {BUDGET_OPTIONS.map((opt) => {
+            const selected = value === opt;
+            return (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => { setValue(opt); setError(""); }}
+                className={`rounded-lg border px-5 py-4 text-base font-medium transition-all duration-200 text-left ${
+                  selected
+                    ? "border-primary bg-primary/15 text-primary"
+                    : "border-white/10 bg-white/[0.04] text-foreground/70 hover:border-white/20 hover:bg-white/[0.06]"
+                }`}
+              >
+                {opt}
               </button>
             );
           })}
@@ -207,6 +228,8 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
     );
   };
 
+  const showContinueButton = current.type === "select" || current.type === "budget" || step === totalSteps - 1;
+
   return (
     <div className="w-full max-w-xl mx-auto">
       {/* Progress bar */}
@@ -223,10 +246,7 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
       </p>
 
       {/* Question */}
-      <div
-        key={step}
-        className="animate-step-in"
-      >
+      <div key={step} className="animate-step-in">
         <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2 leading-tight">
           {current.label}
         </h2>
@@ -244,7 +264,7 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
 
       {/* Navigation */}
       <div className="mt-8 flex items-center gap-3">
-        {current.type === "select" || step === totalSteps - 1 ? (
+        {showContinueButton ? (
           <InteractiveHoverButton
             text={step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit Application") : "Continue"}
             onClick={goNext}
@@ -274,7 +294,7 @@ const ApplicationForm = ({ onComplete }: ApplicationFormProps) => {
       </div>
 
       {/* Press Enter hint */}
-      {current.type !== "select" && current.type !== "textarea" && (
+      {current.type !== "select" && current.type !== "textarea" && current.type !== "budget" && (
         <p className="text-foreground/25 text-xs mt-4">
           press <span className="font-mono bg-white/5 px-1.5 py-0.5 rounded">Enter ↵</span>
         </p>

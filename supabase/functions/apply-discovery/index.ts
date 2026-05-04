@@ -13,6 +13,7 @@ const BodySchema = z.object({
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"]),
   age: z.number().int().min(5).max(99),
   goals: z.string().trim().min(1).max(2000),
+  budget: z.enum(["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"]),
 });
 
 Deno.serve(async (req) => {
@@ -38,7 +39,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { firstName, email, phone, position, age, goals } = parsed.data;
+    const { firstName, email, phone, position, age, goals, budget } = parsed.data;
 
     const ghlPayload: Record<string, unknown> = {
       locationId: GHL_LOCATION_ID,
@@ -49,11 +50,13 @@ Deno.serve(async (req) => {
         "pbcoaching",
         "applied",
         position.toLowerCase(),
+        `budget-${budget}`,
       ],
       customFields: [
         { key: "contact.position", field_value: position },
         { key: "contact.age", field_value: String(age) },
         { key: "contact.goals", field_value: goals },
+        { key: "contact.budget", field_value: budget },
       ],
     };
     if (phone) ghlPayload.phone = phone;
