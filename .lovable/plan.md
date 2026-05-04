@@ -1,45 +1,29 @@
+## Changes
 
-# Native Application Form for /apply
+### 1. Add budget question to ApplicationForm
 
-Replace the current iframe booking embed with a two-step native experience: a Typeform-style application form followed by the booking calendar.
+Add a new step after "goals" (step 7 of 7):
+- **Label:** "How much are you willing to invest in your development?"
+- **Type:** Single-select buttons (same style as position picker)
+- **Options:** `< $50`, `$50 - $100`, `$200 - $500`, `$500 - $1,000`, `$1,000+`
+- Update the zod schema to include `budget` as a required enum field
 
-## Step 1 -- Native multi-step form (new component)
+### 2. Replace booking widget with Calendly redirect
 
-Create `src/components/ApplicationForm.tsx` -- a full-screen-feel, one-question-at-a-time form with smooth transitions between steps:
+After form submission succeeds, instead of showing the GHL booking iframe, redirect the user to `https://calendly.com/pbcoachingiq/30min` in the same tab.
 
-1. **First Name** (text, required)
-2. **Email** (email, required)
-3. **Phone** (tel, optional)
-4. **Position** (single-select: Attacker / Midfielder / Defender / Goalkeeper)
-5. **Age** (number input, required)
-6. **Goals / Message** ("What do you want to achieve?" -- textarea, required)
+Remove the entire "booking" phase from `Apply.tsx` -- no more iframe, no postMessage listener, no booking widget mounting. The page becomes form-only.
 
-Each step shows one field at a time with a progress indicator, Enter/button to advance, and a subtle slide-up animation. Matches the existing dark glassmorphism style (frosted card, cool yellow accents, Sansation font). Mobile-first since 75% of traffic is mobile.
+### 3. Update edge function
 
-On final submit, calls a new edge function to push the data to GHL.
+Add `budget` to the schema and include it in the GHL payload (as a custom field and tag).
 
-## Step 2 -- New edge function `apply-discovery`
+### 4. Clean up unused files
 
-Create `supabase/functions/apply-discovery/index.ts`:
-- Validates all fields server-side (zod)
-- Upserts contact to GHL via `services.leadconnectorhq.com/contacts/upsert` using existing `GHL_API_KEY` and `GHL_LOCATION_ID` secrets
-- Sends: firstName, email, phone, source ("Website Application Form"), tags (position, "pbcoaching", "applied"), and stores position/age/goals in GHL custom fields or the `notes` field if custom fields aren't set up
-- Returns success/contact data
+- Delete `src/components/TallyEmbed.tsx` (no longer used anywhere)
 
-## Step 3 -- Show booking calendar after submission
+### Technical details
 
-After form submission succeeds, transition the view to show the existing LeadConnector booking widget (same widget ID `LPjvAbKiuIWkr1tCSHPo`) so the applicant can immediately pick a call time. The postMessage redirect to `/thank-you` stays intact.
-
-## Step 4 -- Update `/apply` page
-
-Replace the current `TallyEmbed` with the new `ApplicationForm` component. Update the hero copy to be warmer and conversion-focused:
-- Headline: "Let's Get You on the Pitch"
-- Subtext: "Answer a few quick questions so we can tailor your free discovery call."
-
-## Technical details
-
-- Form validation: zod on client + server
-- Animations: CSS transitions (transform + opacity) for step transitions, no extra dependencies
-- CTA button: InteractiveHoverButton per project rules
-- Progress: thin accent-colored bar at top of the form card
-- The existing `TallyEmbed.tsx` file stays untouched (used nowhere else after this change, can be cleaned up later)
+- `ApplicationForm.tsx`: Add budget step to STEPS array, update schema, on submit success call `window.location.href = "https://calendly.com/pbcoachingiq/30min"` instead of `onComplete()`
+- `Apply.tsx`: Remove booking phase, iframe logic, postMessage listener. Simplify to just render the form. Remove `onComplete` prop since form handles redirect internally.
+- `supabase/functions/apply-discovery/index.ts`: Add budget to BodySchema and GHL payload
