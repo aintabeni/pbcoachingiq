@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect, KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { ChevronUp, Check } from "lucide-react";
+import { ChevronUp, Check, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { toast } from "@/hooks/use-toast";
