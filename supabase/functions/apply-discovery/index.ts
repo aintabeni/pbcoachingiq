@@ -12,10 +12,13 @@ const CF_POSITION = "8dGtm16U8kywBRWntj5g";
 const CF_AGE      = "ZdgsCoRwll8qU4kWNZ7s";
 const CF_GOALS    = "PRx9rYSQpJ8ewmdgf6ND";
 
+const CF_INSTAGRAM = "instagram"; // will store in GHL custom field
+
 const BodySchema = z.object({
   firstName: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(255),
   phone: z.string().trim().max(32).optional().or(z.literal("")),
+  instagram: z.string().trim().max(100).optional().or(z.literal("")),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"]),
   detailedPosition: z.string().trim().min(1).max(100),
   age: z.number().int().min(5).max(99),
