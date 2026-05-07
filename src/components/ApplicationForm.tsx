@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { ChevronUp, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -59,6 +60,7 @@ const STEPS: Step[] = [
 
 const ApplicationForm = () => {
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
   const [selectedDotIndex, setSelectedDotIndex] = useState<number | null>(null);
   const [formData, setFormData] = useState<Partial<FormData>>(() => {
     try {
@@ -136,7 +138,7 @@ const ApplicationForm = () => {
       }
 
       // Redirect to thank you page
-      window.location.href = "/thank-you";
+      navigate("/thank-you");
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
       toast({ title: "Couldn't submit", description: msg, variant: "destructive" });
