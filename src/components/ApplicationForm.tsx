@@ -27,6 +27,7 @@ const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
   phone: z.string().trim().max(32).optional().or(z.literal("")),
+  instagram: z.string().trim().max(100).optional().or(z.literal("")),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"], {
     errorMap: () => ({ message: "Pick your position" }),
   }),
