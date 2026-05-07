@@ -175,21 +175,31 @@ const ApplicationForm = () => {
 
     if (current.type === "select") {
       return (
-        <div className="grid grid-cols-2 gap-3">
-          {POSITIONS.map((pos) => {
-            const selected = value === pos;
+        <div className="relative w-full aspect-[4/5] max-w-xs mx-auto">
+          {PITCH_POSITIONS.map((pos, i) => {
+            const selected = value === pos.category;
             return (
               <button
-                key={pos}
+                key={`${pos.label}-${i}`}
                 type="button"
-                onClick={() => { setValue(pos); setError(""); }}
-                className={`rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
-                  selected
-                    ? "border-primary bg-primary/15 text-primary"
-                    : "border-white/10 bg-white/[0.04] text-foreground/70 hover:border-white/20 hover:bg-white/[0.06]"
-                }`}
+                onClick={() => { setValue(pos.category); setError(""); }}
+                className="absolute flex flex-col items-center gap-1 -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+                style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
               >
-                {pos}
+                <span
+                  className={`text-xs font-bold transition-colors ${
+                    selected ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  {pos.label}
+                </span>
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    selected
+                      ? "bg-primary shadow-[0_0_12px_3px_hsl(var(--primary)/0.6)]"
+                      : "bg-destructive shadow-[0_0_8px_2px_hsl(var(--destructive)/0.5)] group-hover:shadow-[0_0_12px_3px_hsl(var(--destructive)/0.7)]"
+                  }`}
+                />
               </button>
             );
           })}
