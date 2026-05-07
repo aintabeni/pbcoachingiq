@@ -9,6 +9,20 @@ import { toast } from "@/hooks/use-toast";
 const BUDGET_OPTIONS = ["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"] as const;
 const POSITIONS = ["Attacker", "Midfielder", "Defender", "Goalkeeper"] as const;
 
+const PITCH_POSITIONS = [
+  { label: "ST", x: 50, y: 5, category: "Attacker" as const },
+  { label: "CAM", x: 50, y: 18, category: "Midfielder" as const },
+  { label: "LW", x: 22, y: 25, category: "Attacker" as const },
+  { label: "RW", x: 78, y: 25, category: "Attacker" as const },
+  { label: "CM", x: 50, y: 38, category: "Midfielder" as const },
+  { label: "DM", x: 50, y: 52, category: "Midfielder" as const },
+  { label: "LB", x: 15, y: 68, category: "Defender" as const },
+  { label: "CB", x: 38, y: 68, category: "Defender" as const },
+  { label: "CB", x: 62, y: 68, category: "Defender" as const },
+  { label: "RB", x: 85, y: 68, category: "Defender" as const },
+  { label: "GK", x: 50, y: 88, category: "Goalkeeper" as const },
+];
+
 const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
