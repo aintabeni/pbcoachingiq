@@ -223,7 +223,12 @@ const ApplicationForm = () => {
               <button
                 key={opt}
                 type="button"
-                onClick={() => { setValue(opt); setError(""); }}
+                onClick={() => {
+                  setValue(opt);
+                  setError("");
+                  // Last step → submit
+                  setTimeout(() => handleSubmit(), 350);
+                }}
                 className={`rounded-lg border px-5 py-4 text-base font-medium transition-all duration-200 text-left ${
                   selected
                     ? "border-primary bg-primary/15 text-primary"
