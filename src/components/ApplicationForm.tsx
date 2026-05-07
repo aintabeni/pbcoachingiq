@@ -1,8 +1,8 @@
-import { useState, useCallback, useRef, useEffect, KeyboardEvent, useMemo } from "react";
+import { useState, useCallback, useRef, useEffect, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { ChevronUp, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { toast } from "@/hooks/use-toast";
 
@@ -58,10 +58,10 @@ const STEPS: Step[] = [
   { key: "budget", label: "How much are you willing to invest in your development?", type: "budget", required: true },
 ];
 
-const CALENDLY_URL = "https://calendly.com/pbcoachingiq/30min";
-
 const ApplicationForm = () => {
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
+  const [selectedDotIndex, setSelectedDotIndex] = useState<number | null>(null);
   const [formData, setFormData] = useState<Partial<FormData>>(() => {
     try {
       const saved = localStorage.getItem("pb_position");
@@ -115,8 +115,9 @@ const ApplicationForm = () => {
     return true;
   }, [current, formData]);
 
-  const handleSubmit = async () => {
-    const payload = { ...formData, age: Number(formData.age) };
+  const handleSubmit = async (overrides?: Partial<FormData>) => {
+    const merged = { ...formData, ...overrides };
+    const payload = { ...merged, age: Number(merged.age) };
     const parsed = schema.safeParse(payload);
     if (!parsed.success) {
       const first = parsed.error.errors[0];
@@ -136,8 +137,8 @@ const ApplicationForm = () => {
         return;
       }
 
-      // Redirect to Calendly
-      window.location.href = CALENDLY_URL;
+      // Redirect to thank you page
+      navigate("/thank-you");
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
       toast({ title: "Couldn't submit", description: msg, variant: "destructive" });
@@ -177,12 +178,20 @@ const ApplicationForm = () => {
       return (
         <div className="relative w-full aspect-[4/5] max-w-xs mx-auto">
           {PITCH_POSITIONS.map((pos, i) => {
-            const selected = value === pos.category;
+            const selected = selectedDotIndex === i;
             return (
               <button
                 key={`${pos.label}-${i}`}
                 type="button"
-                onClick={() => { setValue(pos.category); setError(""); }}
+                onClick={() => {
+                  setSelectedDotIndex(i);
+                  setFormData((prev) => ({ ...prev, position: pos.category }));
+                  setError("");
+                  // Auto-advance after short delay
+                  setTimeout(() => {
+                    setStep((s) => s + 1);
+                  }, 350);
+                }}
                 className="absolute flex flex-col items-center gap-1 -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
                 style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
               >
@@ -216,7 +225,12 @@ const ApplicationForm = () => {
               <button
                 key={opt}
                 type="button"
-                onClick={() => { setValue(opt); setError(""); }}
+                onClick={() => {
+                  setValue(opt);
+                  setError("");
+                  // Last step → submit
+                  setTimeout(() => handleSubmit({ budget: opt }), 350);
+                }}
                 className={`rounded-lg border px-5 py-4 text-base font-medium transition-all duration-200 text-left ${
                   selected
                     ? "border-primary bg-primary/15 text-primary"
@@ -273,7 +287,7 @@ const ApplicationForm = () => {
     );
   };
 
-  const showContinueButton = current.type === "select" || current.type === "budget" || step === totalSteps - 1;
+  
 
   return (
     <div className="w-full max-w-xl mx-auto">
@@ -309,20 +323,14 @@ const ApplicationForm = () => {
 
       {/* Navigation */}
       <div className="mt-8 flex items-center gap-3">
-        {showContinueButton ? (
-          <InteractiveHoverButton
-            text={step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit Application") : "Continue"}
-            onClick={goNext}
-            disabled={submitting}
-            className="border-primary/30 text-foreground"
-          />
-        ) : (
+        {current.type !== "select" && current.type !== "budget" && (
           <button
             type="button"
             onClick={goNext}
+            disabled={submitting}
             className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-foreground rounded-lg px-6 py-3 text-base font-semibold transition-colors"
           >
-            OK <Check className="w-4 h-4" />
+            {step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit") : "OK"} <Check className="w-4 h-4" />
           </button>
         )}
 
