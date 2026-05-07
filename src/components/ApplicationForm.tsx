@@ -48,7 +48,15 @@ const CALENDLY_URL = "https://calendly.com/pbcoachingiq/30min";
 
 const ApplicationForm = () => {
   const [step, setStep] = useState(0);
-  const [formData, setFormData] = useState<Partial<FormData>>({});
+  const [formData, setFormData] = useState<Partial<FormData>>(() => {
+    try {
+      const saved = localStorage.getItem("pb_position");
+      if (saved && (POSITIONS as readonly string[]).includes(saved)) {
+        return { position: saved as FormData["position"] };
+      }
+    } catch {}
+    return {};
+  });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
