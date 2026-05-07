@@ -186,7 +186,7 @@ const ApplicationForm = () => {
                 type="button"
                 onClick={() => {
                   setSelectedDotIndex(i);
-                  setFormData((prev) => ({ ...prev, position: pos.category }));
+                  setFormData((prev) => ({ ...prev, position: pos.category, detailedPosition: pos.fullName }));
                   setError("");
                   // Auto-advance after short delay
                   setTimeout(() => {
