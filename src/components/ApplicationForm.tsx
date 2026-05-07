@@ -30,6 +30,7 @@ const schema = z.object({
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"], {
     errorMap: () => ({ message: "Pick your position" }),
   }),
+  detailedPosition: z.string().trim().min(1, "Pick your position").max(100),
   age: z.number({ invalid_type_error: "Enter your age" }).int().min(5, "Enter a valid age").max(99, "Enter a valid age"),
   goals: z.string().trim().min(1, "Tell us what you want to achieve").max(2000),
   budget: z.enum(["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"], {
