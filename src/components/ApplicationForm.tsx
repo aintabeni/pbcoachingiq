@@ -214,15 +214,27 @@ const ApplicationForm = () => {
       );
     }
 
+    if (current.type === "tel") {
+      return (
+        <PhoneInput
+          value={String(value) as any}
+          onChange={(val) => setValue(val || "")}
+          defaultCountry="US"
+          placeholder={current.placeholder}
+          className="w-full"
+        />
+      );
+    }
+
     return (
       <input
         ref={inputRef as React.RefObject<HTMLInputElement>}
         type={current.type}
         value={String(value)}
-        onChange={(e) => setValue(current.type === "number" ? e.target.value : e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={current.placeholder}
-        maxLength={current.type === "tel" ? 32 : 255}
+        maxLength={255}
         className={baseClass}
         inputMode={current.type === "number" ? "numeric" : undefined}
       />
