@@ -320,37 +320,37 @@ const ApplicationForm = () => {
         )}
       </div>
 
-      {/* Navigation */}
-      <div className="mt-8 flex items-center gap-3">
-        {current.type !== "select" && current.type !== "budget" && (
-          <button
-            type="button"
-            onClick={goNext}
-            disabled={submitting}
-            className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-foreground rounded-lg px-6 py-3 text-base font-semibold transition-colors"
-          >
-            {step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit") : "OK"} <Check className="w-4 h-4" />
-          </button>
-        )}
+        {/* Navigation */}
+        <div className="mt-8 flex items-center gap-3">
+          {current.type !== "select" && (
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={submitting}
+              className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-foreground rounded-lg px-6 py-3 text-base font-semibold transition-colors"
+            >
+              {step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit") : "OK"} <Check className="w-4 h-4" />
+            </button>
+          )}
 
-        {step > 0 && (
-          <button
-            type="button"
-            onClick={goBack}
-            className="flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 bg-white/[0.04] text-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
-            aria-label="Go back"
-          >
-            <ChevronUp className="w-5 h-5" />
-          </button>
-        )}
-      </div>
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={goBack}
+              className="flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 bg-white/[0.04] text-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
+              aria-label="Go back"
+            >
+              <ChevronUp className="w-5 h-5" />
+            </button>
+          )}
+        </div>
 
-      {/* Press Enter hint */}
-      {current.type !== "select" && current.type !== "textarea" && current.type !== "budget" && (
-        <p className="text-foreground/25 text-xs mt-4">
-          press <span className="font-mono bg-white/5 px-1.5 py-0.5 rounded">Enter ↵</span>
-        </p>
-      )}
+        {/* Press Enter hint */}
+        {current.type !== "select" && current.type !== "textarea" && (
+          <p className="text-foreground/25 text-xs mt-4">
+            press <span className="font-mono bg-white/5 px-1.5 py-0.5 rounded">Enter ↵</span>
+          </p>
+        )}
     </div>
   );
 };
