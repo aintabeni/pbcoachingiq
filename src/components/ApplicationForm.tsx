@@ -227,7 +227,7 @@ const ApplicationForm = () => {
                   setValue(opt);
                   setError("");
                   // Last step → submit
-                  setTimeout(() => handleSubmit(), 350);
+                  setTimeout(() => handleSubmit({ budget: opt }), 350);
                 }}
                 className={`rounded-lg border px-5 py-4 text-base font-medium transition-all duration-200 text-left ${
                   selected
