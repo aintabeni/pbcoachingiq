@@ -321,20 +321,14 @@ const ApplicationForm = () => {
 
       {/* Navigation */}
       <div className="mt-8 flex items-center gap-3">
-        {showContinueButton ? (
-          <InteractiveHoverButton
-            text={step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit Application") : "Continue"}
-            onClick={goNext}
-            disabled={submitting}
-            className="border-primary/30 text-foreground"
-          />
-        ) : (
+        {current.type !== "select" && current.type !== "budget" && (
           <button
             type="button"
             onClick={goNext}
+            disabled={submitting}
             className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-foreground rounded-lg px-6 py-3 text-base font-semibold transition-colors"
           >
-            OK <Check className="w-4 h-4" />
+            {step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit") : "OK"} <Check className="w-4 h-4" />
           </button>
         )}
 
