@@ -58,10 +58,9 @@ const STEPS: Step[] = [
   { key: "budget", label: "How much are you willing to invest in your development?", type: "budget", required: true },
 ];
 
-const CALENDLY_URL = "https://calendly.com/pbcoachingiq/30min";
-
 const ApplicationForm = () => {
   const [step, setStep] = useState(0);
+  const [selectedDotIndex, setSelectedDotIndex] = useState<number | null>(null);
   const [formData, setFormData] = useState<Partial<FormData>>(() => {
     try {
       const saved = localStorage.getItem("pb_position");
