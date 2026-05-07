@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect, KeyboardEvent } from "react";
+import { useState, useCallback, useRef, useEffect, KeyboardEvent, useMemo } from "react";
 import { z } from "zod";
 import { ChevronUp, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,6 +8,20 @@ import { toast } from "@/hooks/use-toast";
 
 const BUDGET_OPTIONS = ["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"] as const;
 const POSITIONS = ["Attacker", "Midfielder", "Defender", "Goalkeeper"] as const;
+
+const PITCH_POSITIONS = [
+  { label: "ST", x: 50, y: 5, category: "Attacker" as const },
+  { label: "CAM", x: 50, y: 18, category: "Midfielder" as const },
+  { label: "LW", x: 22, y: 25, category: "Attacker" as const },
+  { label: "RW", x: 78, y: 25, category: "Attacker" as const },
+  { label: "CM", x: 50, y: 38, category: "Midfielder" as const },
+  { label: "DM", x: 50, y: 52, category: "Midfielder" as const },
+  { label: "LB", x: 15, y: 68, category: "Defender" as const },
+  { label: "CB", x: 38, y: 68, category: "Defender" as const },
+  { label: "CB", x: 62, y: 68, category: "Defender" as const },
+  { label: "RB", x: 85, y: 68, category: "Defender" as const },
+  { label: "GK", x: 50, y: 88, category: "Goalkeeper" as const },
+];
 
 const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(100),
@@ -161,21 +175,31 @@ const ApplicationForm = () => {
 
     if (current.type === "select") {
       return (
-        <div className="grid grid-cols-2 gap-3">
-          {POSITIONS.map((pos) => {
-            const selected = value === pos;
+        <div className="relative w-full aspect-[4/5] max-w-xs mx-auto">
+          {PITCH_POSITIONS.map((pos, i) => {
+            const selected = value === pos.category;
             return (
               <button
-                key={pos}
+                key={`${pos.label}-${i}`}
                 type="button"
-                onClick={() => { setValue(pos); setError(""); }}
-                className={`rounded-lg border px-4 py-4 text-base font-medium transition-all duration-200 ${
-                  selected
-                    ? "border-primary bg-primary/15 text-primary"
-                    : "border-white/10 bg-white/[0.04] text-foreground/70 hover:border-white/20 hover:bg-white/[0.06]"
-                }`}
+                onClick={() => { setValue(pos.category); setError(""); }}
+                className="absolute flex flex-col items-center gap-1 -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+                style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
               >
-                {pos}
+                <span
+                  className={`text-xs font-bold transition-colors ${
+                    selected ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  {pos.label}
+                </span>
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    selected
+                      ? "bg-primary shadow-[0_0_12px_3px_hsl(var(--primary)/0.6)]"
+                      : "bg-destructive shadow-[0_0_8px_2px_hsl(var(--destructive)/0.5)] group-hover:shadow-[0_0_12px_3px_hsl(var(--destructive)/0.7)]"
+                  }`}
+                />
               </button>
             );
           })}
