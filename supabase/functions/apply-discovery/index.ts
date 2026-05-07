@@ -12,7 +12,7 @@ const CF_POSITION = "8dGtm16U8kywBRWntj5g";
 const CF_AGE      = "ZdgsCoRwll8qU4kWNZ7s";
 const CF_GOALS    = "PRx9rYSQpJ8ewmdgf6ND";
 
-const CF_INSTAGRAM = "instagram"; // will store in GHL custom field
+const CF_INSTAGRAM = "GADax6CTpeOO4t5IsxSM";
 
 const BodySchema = z.object({
   firstName: z.string().trim().min(1).max(100),
