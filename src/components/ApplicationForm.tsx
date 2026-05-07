@@ -3,7 +3,6 @@ import { z } from "zod";
 import { ChevronUp, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PhoneInput } from "@/components/ui/phone-input";
-import { PhoneInput } from "@/components/ui/phone-input";
 import { toast } from "@/hooks/use-toast";
 
 const BUDGET_OPTIONS = ["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"] as const;
