@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect, KeyboardEvent, useMemo } from "react";
+import { useState, useCallback, useRef, useEffect, KeyboardEvent } from "react";
 import { z } from "zod";
 import { ChevronUp, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
