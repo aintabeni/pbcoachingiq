@@ -40,6 +40,13 @@ const Quiz = () => {
 
   const selectPosition = (index: number) => {
     setSelectedPositions([index]);
+    // Store the broad position category for the application form
+    const route = pitchPositions[index]?.scanningRoute ?? "";
+    const category = route.includes("attacker") ? "Attacker"
+      : route.includes("midfielder") ? "Midfielder"
+      : route.includes("defender") ? "Defender"
+      : "Goalkeeper";
+    try { localStorage.setItem("pb_position", category); } catch {}
     setStep(2);
   };
 
