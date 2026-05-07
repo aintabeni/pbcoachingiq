@@ -55,7 +55,7 @@ const STEPS: Step[] = [
   { key: "phone", label: "Phone number", sublabel: "Optional — we'll text reminders if you'd like.", type: "tel", placeholder: "(555) 000-0000" },
   { key: "position", label: "What position do you play?", type: "select", required: true },
   { key: "age", label: "How old are you?", type: "number", placeholder: "e.g. 17", required: true },
-  { key: "goals", label: "What do you want to achieve?", sublabel: "Be specific — it helps us prepare for your call.", type: "textarea", placeholder: "e.g. I want to improve my first touch and play at a higher level…", required: true },
+  { key: "goals", label: "What do you want to achieve?", sublabel: "We disqualify 70% of applicants because they don't give very good answers — be specific.", type: "textarea", placeholder: "e.g. I want to improve my first touch and play at a higher level…", required: true },
   { key: "budget", label: "How much are you willing to invest in your development?", type: "budget", required: true },
 ];
 
