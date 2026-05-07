@@ -135,8 +135,8 @@ const ApplicationForm = () => {
         return;
       }
 
-      // Redirect to Calendly
-      window.location.href = CALENDLY_URL;
+      // Redirect to thank you page
+      window.location.href = "/thank-you";
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
       toast({ title: "Couldn't submit", description: msg, variant: "destructive" });
