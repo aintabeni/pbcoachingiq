@@ -176,12 +176,20 @@ const ApplicationForm = () => {
       return (
         <div className="relative w-full aspect-[4/5] max-w-xs mx-auto">
           {PITCH_POSITIONS.map((pos, i) => {
-            const selected = value === pos.category;
+            const selected = selectedDotIndex === i;
             return (
               <button
                 key={`${pos.label}-${i}`}
                 type="button"
-                onClick={() => { setValue(pos.category); setError(""); }}
+                onClick={() => {
+                  setSelectedDotIndex(i);
+                  setFormData((prev) => ({ ...prev, position: pos.category }));
+                  setError("");
+                  // Auto-advance after short delay
+                  setTimeout(() => {
+                    setStep((s) => s + 1);
+                  }, 350);
+                }}
                 className="absolute flex flex-col items-center gap-1 -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
                 style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
               >
