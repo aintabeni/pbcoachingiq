@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect, KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { ChevronUp, Check } from "lucide-react";
+import { ChevronUp, Check, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { toast } from "@/hooks/use-toast";
@@ -229,8 +229,6 @@ const ApplicationForm = () => {
                 onClick={() => {
                   setValue(opt);
                   setError("");
-                  // Last step → submit
-                  setTimeout(() => handleSubmit({ budget: opt }), 350);
                 }}
                 className={`rounded-lg border px-5 py-4 text-base font-medium transition-all duration-200 text-left ${
                   selected
@@ -322,37 +320,58 @@ const ApplicationForm = () => {
         )}
       </div>
 
-      {/* Navigation */}
-      <div className="mt-8 flex items-center gap-3">
-        {current.type !== "select" && current.type !== "budget" && (
-          <button
-            type="button"
-            onClick={goNext}
-            disabled={submitting}
-            className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-foreground rounded-lg px-6 py-3 text-base font-semibold transition-colors"
-          >
-            {step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit") : "OK"} <Check className="w-4 h-4" />
-          </button>
+        {/* Navigation */}
+        <div className="mt-8 flex items-center gap-3">
+          {current.type !== "select" && (
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={submitting}
+              className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-foreground rounded-lg px-6 py-3 text-base font-semibold transition-colors"
+            >
+              {step === totalSteps - 1 ? (submitting ? "Submitting..." : "Submit") : "OK"} <Check className="w-4 h-4" />
+            </button>
+          )}
+
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={goBack}
+              className="flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 bg-white/[0.04] text-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
+              aria-label="Go back"
+            >
+              <ChevronUp className="w-5 h-5" />
+            </button>
+          )}
+        </div>
+
+        {/* Press Enter hint */}
+        {current.type !== "select" && current.type !== "textarea" && (
+          <p className="text-foreground/25 text-xs mt-4">
+            press <span className="font-mono bg-white/5 px-1.5 py-0.5 rounded">Enter ↵</span>
+          </p>
         )}
 
-        {step > 0 && (
-          <button
-            type="button"
-            onClick={goBack}
-            className="flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 bg-white/[0.04] text-foreground/50 hover:text-foreground hover:bg-white/[0.08] transition-colors"
-            aria-label="Go back"
-          >
-            <ChevronUp className="w-5 h-5" />
-          </button>
+        {/* Prominent submit CTA on last step */}
+        {step === totalSteps - 1 && (
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={() => handleSubmit()}
+              disabled={submitting}
+              className="group relative w-full overflow-hidden rounded-full border bg-background px-6 py-4 text-center font-semibold text-lg cursor-pointer"
+            >
+              <span className="inline-block translate-x-1 transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0">
+                {submitting ? "Submitting..." : "Submit Application"}
+              </span>
+              <div className="absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 text-primary-foreground opacity-0 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100">
+                <span>Submit Application</span>
+                <ArrowRight />
+              </div>
+              <div className="absolute left-[5%] top-[40%] h-2 w-2 scale-[1] rounded-lg bg-primary transition-all duration-300 group-hover:left-[0%] group-hover:top-[0%] group-hover:h-full group-hover:w-full group-hover:scale-[1.8] group-hover:bg-primary" />
+            </button>
+          </div>
         )}
-      </div>
-
-      {/* Press Enter hint */}
-      {current.type !== "select" && current.type !== "textarea" && current.type !== "budget" && (
-        <p className="text-foreground/25 text-xs mt-4">
-          press <span className="font-mono bg-white/5 px-1.5 py-0.5 rounded">Enter ↵</span>
-        </p>
-      )}
     </div>
   );
 };
