@@ -284,7 +284,7 @@ const ApplicationForm = () => {
     );
   };
 
-  const showContinueButton = current.type === "select" || current.type === "budget" || step === totalSteps - 1;
+  
 
   return (
     <div className="w-full max-w-xl mx-auto">
