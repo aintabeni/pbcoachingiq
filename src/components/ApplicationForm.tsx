@@ -113,9 +113,9 @@ const ApplicationForm = () => {
     return true;
   }, [current, formData]);
 
-  const handleSubmit = async () => {
-    const payload = { ...formData, age: Number(formData.age) };
-    const parsed = schema.safeParse(payload);
+  const handleSubmit = async (overrides?: Partial<FormData>) => {
+    const merged = { ...formData, ...overrides };
+    const payload = { ...merged, age: Number(merged.age) };
     if (!parsed.success) {
       const first = parsed.error.errors[0];
       setError(first?.message ?? "Check your answers");
