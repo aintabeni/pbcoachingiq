@@ -27,6 +27,7 @@ const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
   phone: z.string().trim().max(32).optional().or(z.literal("")),
+  instagram: z.string().trim().max(100).optional().or(z.literal("")),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"], {
     errorMap: () => ({ message: "Pick your position" }),
   }),
@@ -52,10 +53,11 @@ interface Step {
 const STEPS: Step[] = [
   { key: "firstName", label: "What's your first name?", type: "text", placeholder: "Your name", required: true },
   { key: "email", label: "What's your email?", sublabel: "We'll send your call confirmation here.", type: "email", placeholder: "you@example.com", required: true },
-  { key: "phone", label: "Phone number", sublabel: "Optional — we'll text reminders if you'd like.", type: "tel", placeholder: "(555) 000-0000" },
+  { key: "phone", label: "Phone number", sublabel: "Optional, we'll text reminders if you'd like.", type: "tel", placeholder: "(555) 000-0000" },
+  { key: "instagram", label: "What's your Instagram?", sublabel: "Optional, so we can check out your highlights.", type: "text", placeholder: "@yourhandle" },
   { key: "position", label: "What position do you play?", type: "select", required: true },
   { key: "age", label: "How old are you?", type: "number", placeholder: "e.g. 17", required: true },
-  { key: "goals", label: "What do you want to achieve?", sublabel: "We disqualify 70% of applicants because they don't give very good answers — be specific.", type: "textarea", placeholder: "e.g. I want to improve my first touch and play at a higher level…", required: true },
+  { key: "goals", label: "What do you want to achieve?", sublabel: "We disqualify 70% of applicants who don't provide detailed answers. Be specific about your goals.", type: "textarea", placeholder: "e.g. I want to improve my first touch and play at a higher level…", required: true },
   { key: "budget", label: "How much are you willing to invest in your development?", type: "budget", required: true },
 ];
 

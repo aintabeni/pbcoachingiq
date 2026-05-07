@@ -12,10 +12,13 @@ const CF_POSITION = "8dGtm16U8kywBRWntj5g";
 const CF_AGE      = "ZdgsCoRwll8qU4kWNZ7s";
 const CF_GOALS    = "PRx9rYSQpJ8ewmdgf6ND";
 
+const CF_INSTAGRAM = "GADax6CTpeOO4t5IsxSM";
+
 const BodySchema = z.object({
   firstName: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(255),
   phone: z.string().trim().max(32).optional().or(z.literal("")),
+  instagram: z.string().trim().max(100).optional().or(z.literal("")),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"]),
   detailedPosition: z.string().trim().min(1).max(100),
   age: z.number().int().min(5).max(99),
@@ -46,7 +49,15 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { firstName, email, phone, position, detailedPosition, age, goals, budget } = parsed.data;
+    const { firstName, email, phone, instagram, position, detailedPosition, age, goals, budget } = parsed.data;
+
+    const customFields = [
+      { id: CF_BUDGET, field_value: budget },
+      { id: CF_POSITION, field_value: detailedPosition },
+      { id: CF_AGE, field_value: String(age) },
+      { id: CF_GOALS, field_value: goals },
+    ];
+    if (instagram) customFields.push({ id: CF_INSTAGRAM, field_value: instagram });
 
     const ghlPayload: Record<string, unknown> = {
       locationId: GHL_LOCATION_ID,
@@ -58,12 +69,7 @@ Deno.serve(async (req) => {
         "applied",
         position.toLowerCase(),
       ],
-      customFields: [
-        { id: CF_BUDGET, field_value: budget },
-        { id: CF_POSITION, field_value: detailedPosition },
-        { id: CF_AGE, field_value: String(age) },
-        { id: CF_GOALS, field_value: goals },
-      ],
+      customFields,
     };
     if (phone) ghlPayload.phone = phone;
 
