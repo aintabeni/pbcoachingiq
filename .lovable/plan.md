@@ -1,29 +1,50 @@
-## Changes
+## Plan
 
-### 1. Add budget question to ApplicationForm
+### 1. Create a helper edge function to provision custom fields in GHL
 
-Add a new step after "goals" (step 7 of 7):
-- **Label:** "How much are you willing to invest in your development?"
-- **Type:** Single-select buttons (same style as position picker)
-- **Options:** `< $50`, `$50 - $100`, `$200 - $500`, `$500 - $1,000`, `$1,000+`
-- Update the zod schema to include `budget` as a required enum field
+Create a one-time-use edge function `create-ghl-fields` that calls `POST /locations/{locationId}/customFields` to create:
+- **Application Budget** (text) — named distinctly to avoid conflict with the existing "budget" field
+- **Position** (text) — will now store detailed positions like "Right Back", "Striker", "Central Midfielder", etc.
+- **Age** (text)
+- **Goals** (text)
 
-### 2. Replace booking widget with Calendly redirect
+### 2. Run the helper and capture custom field IDs
 
-After form submission succeeds, instead of showing the GHL booking iframe, redirect the user to `https://calendly.com/pbcoachingiq/30min` in the same tab.
+Call the function, collect the returned field IDs for each custom field.
 
-Remove the entire "booking" phase from `Apply.tsx` -- no more iframe, no postMessage listener, no booking widget mounting. The page becomes form-only.
+### 3. Update the form and edge function for detailed positions
 
-### 3. Update edge function
+Currently the form sends broad categories ("Attacker", "Midfielder", etc.). Update so the **specific pitch position** is sent as a readable label:
 
-Add `budget` to the schema and include it in the GHL payload (as a custom field and tag).
+| Dot | Sent value |
+|-----|-----------|
+| ST | Striker |
+| CAM | Central Attacking Midfielder |
+| LW | Left Winger |
+| RW | Right Winger |
+| CM | Central Midfielder |
+| DM | Defensive Midfielder |
+| LB | Left Back |
+| CB | Centre Back |
+| RB | Right Back |
+| GK | Goalkeeper |
 
-### 4. Clean up unused files
+- The broad category (Attacker/Midfielder/Defender/Goalkeeper) stays for the `position` field used in tags and routing
+- A new `detailedPosition` field is added to the payload and sent to the GHL custom field
 
-- Delete `src/components/TallyEmbed.tsx` (no longer used anywhere)
+### 4. Update `apply-discovery` edge function
+
+- Use actual custom field IDs (from step 2) in the `customFields` array
+- Remove `budget` from tags
+- Add `detailedPosition` to the schema and payload
+- Keep broad `position` for tags
+
+### 5. Test push
+
+Send a test payload and verify all custom fields appear correctly on the GHL contact.
 
 ### Technical details
 
-- `ApplicationForm.tsx`: Add budget step to STEPS array, update schema, on submit success call `window.location.href = "https://calendly.com/pbcoachingiq/30min"` instead of `onComplete()`
-- `Apply.tsx`: Remove booking phase, iframe logic, postMessage listener. Simplify to just render the form. Remove `onComplete` prop since form handles redirect internally.
-- `supabase/functions/apply-discovery/index.ts`: Add budget to BodySchema and GHL payload
+- `ApplicationForm.tsx`: Add `detailedPosition` to form data, map each pitch dot to a readable label, send both `position` (category) and `detailedPosition` (specific)
+- `apply-discovery/index.ts`: Add `detailedPosition` to schema, use field IDs for customFields, remove budget from tags
+- Helper function created then deleted after use

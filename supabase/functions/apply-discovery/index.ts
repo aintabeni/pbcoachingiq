@@ -6,11 +6,18 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+// GHL custom field IDs
+const CF_BUDGET   = "3m1SQQ9BFTJT2UckwDqx";
+const CF_POSITION = "8dGtm16U8kywBRWntj5g";
+const CF_AGE      = "ZdgsCoRwll8qU4kWNZ7s";
+const CF_GOALS    = "PRx9rYSQpJ8ewmdgf6ND";
+
 const BodySchema = z.object({
   firstName: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(255),
   phone: z.string().trim().max(32).optional().or(z.literal("")),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"]),
+  detailedPosition: z.string().trim().min(1).max(100),
   age: z.number().int().min(5).max(99),
   goals: z.string().trim().min(1).max(2000),
   budget: z.enum(["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"]),
@@ -39,7 +46,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { firstName, email, phone, position, age, goals, budget } = parsed.data;
+    const { firstName, email, phone, position, detailedPosition, age, goals, budget } = parsed.data;
 
     const ghlPayload: Record<string, unknown> = {
       locationId: GHL_LOCATION_ID,
@@ -50,13 +57,12 @@ Deno.serve(async (req) => {
         "pbcoaching",
         "applied",
         position.toLowerCase(),
-        `budget-${budget}`,
       ],
       customFields: [
-        { key: "contact.position", field_value: position },
-        { key: "contact.age", field_value: String(age) },
-        { key: "contact.goals", field_value: goals },
-        { key: "contact.budget", field_value: budget },
+        { id: CF_BUDGET, field_value: budget },
+        { id: CF_POSITION, field_value: detailedPosition },
+        { id: CF_AGE, field_value: String(age) },
+        { id: CF_GOALS, field_value: goals },
       ],
     };
     if (phone) ghlPayload.phone = phone;

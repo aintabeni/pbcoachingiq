@@ -10,17 +10,17 @@ const BUDGET_OPTIONS = ["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "
 const POSITIONS = ["Attacker", "Midfielder", "Defender", "Goalkeeper"] as const;
 
 const PITCH_POSITIONS = [
-  { label: "ST", x: 50, y: 5, category: "Attacker" as const },
-  { label: "CAM", x: 50, y: 18, category: "Midfielder" as const },
-  { label: "LW", x: 22, y: 25, category: "Attacker" as const },
-  { label: "RW", x: 78, y: 25, category: "Attacker" as const },
-  { label: "CM", x: 50, y: 38, category: "Midfielder" as const },
-  { label: "DM", x: 50, y: 52, category: "Midfielder" as const },
-  { label: "LB", x: 15, y: 68, category: "Defender" as const },
-  { label: "CB", x: 38, y: 68, category: "Defender" as const },
-  { label: "CB", x: 62, y: 68, category: "Defender" as const },
-  { label: "RB", x: 85, y: 68, category: "Defender" as const },
-  { label: "GK", x: 50, y: 88, category: "Goalkeeper" as const },
+  { label: "ST", fullName: "Striker", x: 50, y: 5, category: "Attacker" as const },
+  { label: "CAM", fullName: "Central Attacking Midfielder", x: 50, y: 18, category: "Midfielder" as const },
+  { label: "LW", fullName: "Left Winger", x: 22, y: 25, category: "Attacker" as const },
+  { label: "RW", fullName: "Right Winger", x: 78, y: 25, category: "Attacker" as const },
+  { label: "CM", fullName: "Central Midfielder", x: 50, y: 38, category: "Midfielder" as const },
+  { label: "DM", fullName: "Defensive Midfielder", x: 50, y: 52, category: "Midfielder" as const },
+  { label: "LB", fullName: "Left Back", x: 15, y: 68, category: "Defender" as const },
+  { label: "CB", fullName: "Centre Back", x: 38, y: 68, category: "Defender" as const },
+  { label: "CB", fullName: "Centre Back", x: 62, y: 68, category: "Defender" as const },
+  { label: "RB", fullName: "Right Back", x: 85, y: 68, category: "Defender" as const },
+  { label: "GK", fullName: "Goalkeeper", x: 50, y: 88, category: "Goalkeeper" as const },
 ];
 
 const schema = z.object({
@@ -30,6 +30,7 @@ const schema = z.object({
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"], {
     errorMap: () => ({ message: "Pick your position" }),
   }),
+  detailedPosition: z.string().trim().min(1, "Pick your position").max(100),
   age: z.number({ invalid_type_error: "Enter your age" }).int().min(5, "Enter a valid age").max(99, "Enter a valid age"),
   goals: z.string().trim().min(1, "Tell us what you want to achieve").max(2000),
   budget: z.enum(["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"], {
@@ -185,7 +186,7 @@ const ApplicationForm = () => {
                 type="button"
                 onClick={() => {
                   setSelectedDotIndex(i);
-                  setFormData((prev) => ({ ...prev, position: pos.category }));
+                  setFormData((prev) => ({ ...prev, position: pos.category, detailedPosition: pos.fullName }));
                   setError("");
                   // Auto-advance after short delay
                   setTimeout(() => {
