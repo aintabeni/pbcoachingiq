@@ -3,6 +3,7 @@ import { z } from "zod";
 import { ChevronUp, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { PhoneInput } from "@/components/ui/phone-input";
 import { toast } from "@/hooks/use-toast";
 
 const BUDGET_OPTIONS = ["< $50", "$50 - $100", "$200 - $500", "$500 - $1,000", "$1,000+"] as const;
@@ -213,15 +214,27 @@ const ApplicationForm = () => {
       );
     }
 
+    if (current.type === "tel") {
+      return (
+        <PhoneInput
+          value={String(value) as any}
+          onChange={(val) => setValue(val || "")}
+          defaultCountry="US"
+          placeholder={current.placeholder}
+          className="w-full"
+        />
+      );
+    }
+
     return (
       <input
         ref={inputRef as React.RefObject<HTMLInputElement>}
         type={current.type}
         value={String(value)}
-        onChange={(e) => setValue(current.type === "number" ? e.target.value : e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={current.placeholder}
-        maxLength={current.type === "tel" ? 32 : 255}
+        maxLength={255}
         className={baseClass}
         inputMode={current.type === "number" ? "numeric" : undefined}
       />
