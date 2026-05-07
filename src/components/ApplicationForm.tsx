@@ -351,6 +351,27 @@ const ApplicationForm = () => {
             press <span className="font-mono bg-white/5 px-1.5 py-0.5 rounded">Enter ↵</span>
           </p>
         )}
+
+        {/* Prominent submit CTA on last step */}
+        {step === totalSteps - 1 && (
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={() => handleSubmit()}
+              disabled={submitting}
+              className="group relative w-full overflow-hidden rounded-full border bg-background px-6 py-4 text-center font-semibold text-lg cursor-pointer"
+            >
+              <span className="inline-block translate-x-1 transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0">
+                {submitting ? "Submitting..." : "Submit Application"}
+              </span>
+              <div className="absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 text-primary-foreground opacity-0 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100">
+                <span>Submit Application</span>
+                <ArrowRight />
+              </div>
+              <div className="absolute left-[5%] top-[40%] h-2 w-2 scale-[1] rounded-lg bg-primary transition-all duration-300 group-hover:left-[0%] group-hover:top-[0%] group-hover:h-full group-hover:w-full group-hover:scale-[1.8] group-hover:bg-primary" />
+            </button>
+          </div>
+        )}
     </div>
   );
 };
