@@ -6,6 +6,7 @@ import TrainingHost from "@/components/TrainingHost";
 import TrainingFinalCTA from "@/components/TrainingFinalCTA";
 import TrainingFooter from "@/components/TrainingFooter";
 import DotBackground from "@/components/DotBackground";
+import SEO from "@/components/SEO";
 import {
   RegisterModalProvider,
   useRegisterModal,
