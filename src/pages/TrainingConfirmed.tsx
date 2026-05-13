@@ -81,6 +81,11 @@ const TrainingConfirmed = () => {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      <SEO
+        title="Training Confirmed — Football Accelerator"
+        description="You're registered for the Smart Player Blueprint live training on May 30, 2026. Add it to your calendar and prepare to show up live."
+        path="/training/confirmed"
+      />
       <DotBackground />
       <div className="relative z-10 px-4 sm:px-6 lg:px-12 py-16 md:py-24">
         <div className="max-w-4xl mx-auto fade-in">
