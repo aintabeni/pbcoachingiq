@@ -15,6 +15,11 @@ const OfferReapply = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+      <SEO
+        title="Reapply — Scanning Accelerator"
+        description="Your application needs another look. Reapply for PB Coaching's discovery call when you're ready to invest in your game."
+        path="/offer/reapply"
+      />
       <div className="glass rounded-2xl p-10 md:p-14 max-w-2xl w-full fade-in flex flex-col items-center gap-6 text-center">
         <AlertTriangle className="w-14 h-14 text-primary" />
         <h1 className="text-3xl md:text-4xl font-black text-foreground leading-tight">
