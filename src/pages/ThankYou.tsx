@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
 import { Testimonials } from "@/components/Testimonials";
 import { SocialProof } from "@/components/SocialProof";
+import SEO from "@/components/SEO";
 
 const ThankYou = () => {
   useEffect(() => {
