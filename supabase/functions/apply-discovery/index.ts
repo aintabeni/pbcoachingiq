@@ -56,13 +56,14 @@ Deno.serve(async (req) => {
       { id: CF_POSITION, field_value: detailedPosition },
       { id: CF_AGE, field_value: String(age) },
       { id: CF_GOALS, field_value: goals },
+      { id: CF_INSTAGRAM, field_value: instagram },
     ];
-    if (instagram) customFields.push({ id: CF_INSTAGRAM, field_value: instagram });
 
     const ghlPayload: Record<string, unknown> = {
       locationId: GHL_LOCATION_ID,
       firstName,
       email,
+      phone,
       source: "Website Application Form",
       tags: [
         "pbcoaching",
@@ -71,7 +72,6 @@ Deno.serve(async (req) => {
       ],
       customFields,
     };
-    if (phone) ghlPayload.phone = phone;
 
     const ghlResp = await fetch(
       "https://services.leadconnectorhq.com/contacts/upsert",
