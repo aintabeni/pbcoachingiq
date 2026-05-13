@@ -224,7 +224,7 @@ const TrainingConfirmed = () => {
             </p>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
