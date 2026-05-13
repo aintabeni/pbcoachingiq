@@ -1,0 +1,22 @@
+# Scanning Accelerator
+
+> Football Accelerator by PB Coaching: personalised training plans that help players read the game faster, fix technique under pressure and stand out on the pitch.
+
+## Pages
+
+- [Home](/): Free personalised training plan based on your position.
+- [Position Quiz](/quiz): 2-question quiz that maps you to a custom training plan.
+- [Apply](/apply): Apply for a free discovery call with PB Coaching.
+- [Live Training](/training): The Smart Player Blueprint live training with Patrick.
+- [Scanning for Attackers](/scanning-attackers): 4-step scanning order for attackers.
+- [Scanning for Midfielders](/scanning-midfielders): 4-step scanning order for midfielders.
+- [Scanning for Defenders](/scanning-defenders): 4-step scanning order for defenders.
+- [Technique for Attackers](/technique-attackers): First touch and finishing system for attackers.
+- [Technique for Midfielders](/technique-midfielders): Receiving and passing under pressure for midfielders.
+- [Technique for Defenders](/technique-defenders): Composure and build-up technique for defenders.
+- [Conditioning](/conditioning): Match-day stamina system for footballers.
+
+## Optional
+
+- [8-Week Scanning Program](/offer/course): Self-paced course on scanning and decision-making.
+- [Scanning Mastery Playbook](/offer/ebook): Ebook on the scanning order top players use.

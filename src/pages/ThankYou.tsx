@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
 import { Testimonials } from "@/components/Testimonials";
 import { SocialProof } from "@/components/SocialProof";
+import SEO from "@/components/SEO";
 
 const ThankYou = () => {
   useEffect(() => {
@@ -12,6 +13,11 @@ const ThankYou = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12 gap-10">
+      <SEO
+        title="Confirm Your Discovery Call — Scanning Accelerator"
+        description="Final steps to confirm your discovery call with PB Coaching. Watch the parent video and the coaching philosophy before your call."
+        path="/thank-you"
+      />
       {/* Hero message */}
       <div className="glass rounded-2xl p-10 md:p-14 max-w-2xl w-full fade-in flex flex-col items-center gap-5 text-center">
         <AlertTriangle className="w-14 h-14 text-primary" />

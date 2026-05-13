@@ -1,12 +1,18 @@
 import { BookOpen } from "lucide-react";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { SocialProof } from "@/components/SocialProof";
+import SEO from "@/components/SEO";
 
 const EBOOK_URL = "https://whop.com/joined/pb-coaching/products/scanning-mastery-playbook/";
 
 const OfferEbook = () => {
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-12 gap-10">
+      <SEO
+        title="Scanning Mastery Playbook — Scanning Accelerator"
+        description="Download the Scanning Mastery Playbook: PB Coaching's ebook on the exact scanning order top players use to read the game."
+        path="/offer/ebook"
+      />
       <div className="glass rounded-2xl p-10 md:p-14 max-w-2xl w-full fade-in flex flex-col items-center gap-6 text-center">
         <BookOpen className="w-14 h-14 text-primary" />
         <h1 className="text-3xl md:text-4xl font-black text-foreground leading-tight">

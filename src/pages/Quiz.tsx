@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import SEO from "@/components/SEO";
 
 
 const pitchPositions = [
@@ -61,6 +62,11 @@ const Quiz = () => {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center px-4 py-6 overflow-hidden">
+      <SEO
+        title="Football Position Quiz — Scanning Accelerator"
+        description="Take the 2-question quiz to get a custom football training plan based on your position and biggest area to improve."
+        path="/quiz"
+      />
       <div className="w-full max-w-lg">
 
         {/* Progress Bar */}

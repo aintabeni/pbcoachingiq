@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import DotBackground from "@/components/DotBackground";
 import { Calendar, ArrowLeft, Play } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const EVENT_LINE = "LIVE · MAY 30TH, 2026 · 7:00 PM EST";
 const EVENT_TITLE = "The Smart Player Blueprint · Live Training with Patrick";
@@ -80,8 +81,13 @@ const TrainingConfirmed = () => {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      <SEO
+        title="Training Confirmed — Football Accelerator"
+        description="You're registered for the Smart Player Blueprint live training on May 30, 2026. Add it to your calendar and prepare to show up live."
+        path="/training/confirmed"
+      />
       <DotBackground />
-      <main className="relative z-10 px-4 sm:px-6 lg:px-12 py-16 md:py-24">
+      <div className="relative z-10 px-4 sm:px-6 lg:px-12 py-16 md:py-24">
         <div className="max-w-4xl mx-auto fade-in">
           {/* Eyebrow */}
           <p className="font-space-grotesk text-gradient-yellow font-bold uppercase tracking-[0.25em] text-xs md:text-sm text-center">
@@ -224,7 +230,7 @@ const TrainingConfirmed = () => {
             </p>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
