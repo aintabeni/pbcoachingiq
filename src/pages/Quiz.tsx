@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import SEO from "@/components/SEO";
 
 
 const pitchPositions = [
