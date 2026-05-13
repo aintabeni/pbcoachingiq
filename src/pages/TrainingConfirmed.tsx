@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import DotBackground from "@/components/DotBackground";
 import { Calendar, ArrowLeft, Play } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const EVENT_LINE = "LIVE · MAY 30TH, 2026 · 7:00 PM EST";
 const EVENT_TITLE = "The Smart Player Blueprint · Live Training with Patrick";
