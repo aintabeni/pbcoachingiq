@@ -1,50 +1,71 @@
-## Plan
+## Goal
 
-### 1. Create a helper edge function to provision custom fields in GHL
+After submitting the application, route the user based on the **budget** they selected:
 
-Create a one-time-use edge function `create-ghl-fields` that calls `POST /locations/{locationId}/customFields` to create:
-- **Application Budget** (text) — named distinctly to avoid conflict with the existing "budget" field
-- **Position** (text) — will now store detailed positions like "Right Back", "Striker", "Central Midfielder", etc.
-- **Age** (text)
-- **Goals** (text)
+| Budget answer | Destination | Offer |
+|---|---|---|
+| `$500 - $1,000` and `$1,000+` | `/thank-you` (unchanged) | Discovery call booking (current LeadConnector flow) |
+| `$200 - $500` | new `/offer/course` page | Whop **8-Week Scanning Program** ($199) — `https://whop.com/joined/pb-coaching/products/8-week-scanning-program/` |
+| `$50 - $100` | new `/offer/ebook` page | Whop **Master Your Scanning** ebook (€57) — `https://whop.com/joined/pb-coaching/products/scanning-mastery-playbook/` |
+| `< $50` | new `/offer/reapply` page | "If you're not willing to invest, we can't work with you" + button to retake the application |
 
-### 2. Run the helper and capture custom field IDs
+Note: there's no `$100 - $200` bucket in the form today, so the mapping above covers every option.
 
-Call the function, collect the returned field IDs for each custom field.
+## Pages
 
-### 3. Update the form and edge function for detailed positions
+### 1. `/offer/course` — Mid-budget ($200-$500)
+- Headline: explain they're a strong fit but the 1-on-1 program is outside their stated budget.
+- Pitch the **8-Week Scanning Program** ($199): the same scanning system Patrick uses with private clients, self-paced.
+- Single `InteractiveHoverButton` → opens Whop course URL in a new tab.
+- Reuse glassmorphism layout from `ThankYou`. No nav, no internal links.
+- Below CTA: trimmed `SocialProof` grid for trust.
 
-Currently the form sends broad categories ("Attacker", "Midfielder", etc.). Update so the **specific pitch position** is sent as a readable label:
+### 2. `/offer/ebook` — Low-budget ($50-$100)
+- Same layout pattern. Pitch the **Master Your Scanning Playbook** (€57) as the entry point.
+- Single CTA → Whop ebook URL in a new tab.
+- Light social proof underneath.
 
-| Dot | Sent value |
-|-----|-----------|
-| ST | Striker |
-| CAM | Central Attacking Midfielder |
-| LW | Left Winger |
-| RW | Right Winger |
-| CM | Central Midfielder |
-| DM | Defensive Midfielder |
-| LB | Left Back |
-| CB | Centre Back |
-| RB | Right Back |
-| GK | Goalkeeper |
+### 3. `/offer/reapply` — Very low-budget (<$50)
+- Direct message: PB Coaching only works with players ready to invest in their development. If they're serious, they can reapply with a realistic budget.
+- Single CTA → navigates back to `/apply` (clearing saved state so they restart).
+- No external offer, no social proof — keep it short.
 
-- The broad category (Attacker/Midfielder/Defender/Goalkeeper) stays for the `position` field used in tags and routing
-- A new `detailedPosition` field is added to the payload and sent to the GHL custom field
+## Routing change in `ApplicationForm.tsx`
 
-### 4. Update `apply-discovery` edge function
+Replace the hard-coded `navigate("/thank-you")` after a successful `apply-discovery` call with:
 
-- Use actual custom field IDs (from step 2) in the `customFields` array
-- Remove `budget` from tags
-- Add `detailedPosition` to the schema and payload
-- Keep broad `position` for tags
+```ts
+const budget = parsed.data.budget;
+if (budget === "$500 - $1,000" || budget === "$1,000+") navigate("/thank-you");
+else if (budget === "$200 - $500") navigate("/offer/course");
+else if (budget === "$50 - $100") navigate("/offer/ebook");
+else navigate("/offer/reapply"); // "< $50"
+```
 
-### 5. Test push
+The CRM submission (`apply-discovery` edge function) still runs for every applicant — only the post-submit destination changes. No backend changes needed.
 
-Send a test payload and verify all custom fields appear correctly on the GHL contact.
+## App.tsx
 
-### Technical details
+Register three new routes:
+```
+/offer/course   → OfferCourse
+/offer/ebook    → OfferEbook
+/offer/reapply  → OfferReapply
+```
 
-- `ApplicationForm.tsx`: Add `detailedPosition` to form data, map each pitch dot to a readable label, send both `position` (category) and `detailedPosition` (specific)
-- `apply-discovery/index.ts`: Add `detailedPosition` to schema, use field IDs for customFields, remove budget from tags
-- Helper function created then deleted after use
+## Files
+
+**New:**
+- `src/pages/OfferCourse.tsx`
+- `src/pages/OfferEbook.tsx`
+- `src/pages/OfferReapply.tsx`
+
+**Edited:**
+- `src/App.tsx` — add 3 routes
+- `src/components/ApplicationForm.tsx` — branch navigation by budget
+
+## Out of scope
+
+- No payment integration in-app — Whop handles checkout via external link, as you confirmed.
+- `/thank-you` flow stays exactly as it is.
+- No tracking of which offer each applicant saw (can be added later as a custom field in GHL if you want).
