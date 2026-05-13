@@ -1,8 +1,14 @@
 import ApplicationForm from "@/components/ApplicationForm";
+import SEO from "@/components/SEO";
 
 const Apply = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+      <SEO
+        title="Apply for a Discovery Call — Scanning Accelerator"
+        description="Answer a few quick questions to apply for a free discovery call with PB Coaching and tailor your training plan."
+        path="/apply"
+      />
       <div className="w-full max-w-3xl lg:max-w-5xl animate-step-in">
         <p className="text-center text-primary font-semibold text-sm md:text-base tracking-widest uppercase mb-4">
           You're One Step Away
