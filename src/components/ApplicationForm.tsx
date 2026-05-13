@@ -80,7 +80,8 @@ const ApplicationForm = () => {
 
   const current = STEPS[step];
   const totalSteps = STEPS.length;
-  const progress = (step / totalSteps) * 100;
+  // Decelerating progress: early questions contribute more than later ones
+  const progress = [0, 25, 42, 56, 68, 78, 86, 93][step] ?? 100;
 
   useEffect(() => {
     const t = setTimeout(() => inputRef.current?.focus(), 350);
