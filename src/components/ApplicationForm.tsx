@@ -304,14 +304,14 @@ const ApplicationForm = () => {
       {/* Progress bar */}
       <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden mb-8">
         <div
-          className="h-full bg-primary rounded-full transition-all duration-500 ease-out"
-          style={{ width: `${progress}%` }}
+          className="h-full bg-primary rounded-full transition-[width] duration-700"
+          style={{ width: `${progress}%`, transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
         />
       </div>
 
       {/* Step counter */}
       <p className="text-foreground/40 text-sm font-medium mb-6 tracking-wide">
-        {step + 1} → {totalSteps}
+        {step + 1}
       </p>
 
       {/* Question */}
