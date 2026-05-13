@@ -27,6 +27,7 @@ import feedback20 from "@/assets/feedback-20.jpg";
 import feedback21 from "@/assets/feedback-21.jpg";
 import feedback22 from "@/assets/feedback-22.png";
 import feedback23 from "@/assets/feedback-23.png";
+import testimonialDM from "@/assets/testimonial-dm-inspirational.jpeg";
 
 const feedbackImages = [
   { src: feedback11, alt: "Josh testimonial about Patrick training his son Phill during pandemic" },
