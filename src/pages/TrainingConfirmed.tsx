@@ -81,7 +81,7 @@ const TrainingConfirmed = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <DotBackground />
-      <main className="relative z-10 px-4 sm:px-6 lg:px-12 py-16 md:py-24">
+      <div className="relative z-10 px-4 sm:px-6 lg:px-12 py-16 md:py-24">
         <div className="max-w-4xl mx-auto fade-in">
           {/* Eyebrow */}
           <p className="font-space-grotesk text-gradient-yellow font-bold uppercase tracking-[0.25em] text-xs md:text-sm text-center">
