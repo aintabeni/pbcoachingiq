@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
 import { Testimonials } from "@/components/Testimonials";
 import { SocialProof } from "@/components/SocialProof";
-import testimonialDM from "@/assets/testimonial-dm-inspirational.jpeg";
 
 const ThankYou = () => {
   useEffect(() => {
@@ -66,16 +65,6 @@ const ThankYou = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-2xl flex flex-col gap-4 items-center">
-        <img
-          src={testimonialDM}
-          alt="Message from a viewer saying the videos are inspirational and helpful"
-          className="w-full rounded-xl border border-white/10"
-          loading="lazy"
-        />
-      </div>
-
-      <Testimonials showCTA={false} />
       <SocialProof />
     </div>
   );
