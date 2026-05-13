@@ -140,8 +140,17 @@ const ApplicationForm = () => {
         return;
       }
 
-      // Redirect to thank you page
-      navigate("/thank-you");
+      // Route based on budget
+      const budget = parsed.data.budget;
+      if (budget === "$500 - $1,000" || budget === "$1,000+") {
+        navigate("/thank-you");
+      } else if (budget === "$200 - $500") {
+        navigate("/offer/course");
+      } else if (budget === "$50 - $100") {
+        navigate("/offer/ebook");
+      } else {
+        navigate("/offer/reapply");
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
       toast({ title: "Couldn't submit", description: msg, variant: "destructive" });
