@@ -17,8 +17,8 @@ const CF_INSTAGRAM = "GADax6CTpeOO4t5IsxSM";
 const BodySchema = z.object({
   firstName: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(255),
-  phone: z.string().trim().max(32).optional().or(z.literal("")),
-  instagram: z.string().trim().max(100).optional().or(z.literal("")),
+  phone: z.string().trim().min(1).max(32),
+  instagram: z.string().trim().min(1).max(100),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"]),
   detailedPosition: z.string().trim().min(1).max(100),
   age: z.number().int().min(5).max(99),
