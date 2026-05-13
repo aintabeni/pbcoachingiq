@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { AlertTriangle } from "lucide-react";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import SEO from "@/components/SEO";
 
 const OfferReapply = () => {
   const navigate = useNavigate();
