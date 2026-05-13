@@ -22,6 +22,11 @@ const TrainingContent = () => {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      <SEO
+        title="The Smart Player Blueprint Live Training — Football Accelerator"
+        description="Free live training May 30, 2026 with Patrick: stop crumbling under pressure and become the player your team depends on."
+        path="/training"
+      />
       <DotBackground />
       <div className="relative z-10 flex items-center px-4 sm:px-6 lg:px-12 xl:px-20 py-12 md:py-20 lg:py-8 lg:min-h-screen">
       <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-12 items-center">
