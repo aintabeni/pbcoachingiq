@@ -76,7 +76,7 @@ const Quiz = () => {
     setTimeout(() => {
       setConfirming(false);
       setStep(2);
-    }, 400);
+    }, 600);
   };
 
   const selectStruggle = (s: string) => {
@@ -93,7 +93,7 @@ const Quiz = () => {
       if (selectedStruggle === "Technique") navigate(firstPos.techniqueRoute);
       else if (selectedStruggle === "Conditioning") navigate(firstPos.conditioningRoute);
       else navigate(firstPos.scanningRoute);
-    }, 400);
+    }, 600);
   };
 
   return (
@@ -111,8 +111,8 @@ const Quiz = () => {
             Step {step} of 2
           </p>
           <div className="flex gap-1 w-full">
-            <div className={`h-2 flex-1 rounded-full transition-colors duration-300 ${step >= 1 || (step === 1 && confirming) ? "bg-primary" : "bg-secondary"}`} />
-            <div className={`h-2 flex-1 rounded-full transition-colors duration-300 ${step >= 2 || (step === 1 && confirming) ? "bg-primary" : "bg-secondary"}`} />
+            <div className={`h-2 flex-1 rounded-full transition-colors duration-500 ${step >= 1 || (step === 1 && confirming) ? "bg-primary" : "bg-secondary"}`} />
+            <div className={`h-2 flex-1 rounded-full transition-colors duration-500 ${step >= 2 || (step === 1 && confirming) ? "bg-primary" : "bg-secondary"}`} />
           </div>
         </div>
 
