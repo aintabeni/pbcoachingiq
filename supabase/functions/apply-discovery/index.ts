@@ -63,7 +63,6 @@ Deno.serve(async (req) => {
       locationId: GHL_LOCATION_ID,
       firstName,
       email,
-      phone,
       source: "Website Application Form",
       tags: [
         "pbcoaching",
@@ -72,6 +71,9 @@ Deno.serve(async (req) => {
       ],
       customFields,
     };
+    if (phone && phone.length > 0) {
+      ghlPayload.phone = phone;
+    }
 
     const ghlResp = await fetch(
       "https://services.leadconnectorhq.com/contacts/upsert",
