@@ -20,12 +20,19 @@ const Landing = () => {
           for Your Position
         </h1>
 
-        <p className="text-center text-foreground/80 text-base md:text-lg mb-10 max-w-2xl mx-auto fade-in">
+        <p className="text-center text-foreground/80 text-base md:text-lg mb-8 max-w-2xl mx-auto fade-in">
           Tell us your position and your biggest area to improve, and we'll show you exactly what to train next.
         </p>
 
+        <div className="flex justify-center fade-in max-w-md mx-auto mb-10">
+          <InteractiveHoverButton
+            text="Get Your Free Training"
+            onClick={() => navigate("/quiz")}
+          />
+        </div>
+
         <div
-          className="w-full aspect-video rounded-xl overflow-hidden mb-10 glow-yellow fade-in border border-border relative cursor-pointer group"
+          className="w-full aspect-video rounded-xl overflow-hidden glow-yellow fade-in border border-border relative cursor-pointer group"
           onClick={() => navigate("/quiz")}
         >
           <img
@@ -40,12 +47,6 @@ const Landing = () => {
           </div>
         </div>
 
-        <div className="flex justify-center fade-in max-w-md mx-auto">
-          <InteractiveHoverButton
-            text="Get Your Free Training"
-            onClick={() => navigate("/quiz")}
-          />
-        </div>
       </div>
     </div>
   );
