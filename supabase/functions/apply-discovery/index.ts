@@ -17,7 +17,7 @@ const CF_INSTAGRAM = "GADax6CTpeOO4t5IsxSM";
 const BodySchema = z.object({
   firstName: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(255),
-  phone: z.string().trim().min(1).max(32),
+  phone: z.string().trim().max(32).optional(),
   instagram: z.string().trim().min(1).max(100),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"]),
   detailedPosition: z.string().trim().min(1).max(100),
@@ -63,7 +63,6 @@ Deno.serve(async (req) => {
       locationId: GHL_LOCATION_ID,
       firstName,
       email,
-      phone,
       source: "Website Application Form",
       tags: [
         "pbcoaching",
@@ -72,6 +71,9 @@ Deno.serve(async (req) => {
       ],
       customFields,
     };
+    if (phone && phone.length > 0) {
+      ghlPayload.phone = phone;
+    }
 
     const ghlResp = await fetch(
       "https://services.leadconnectorhq.com/contacts/upsert",

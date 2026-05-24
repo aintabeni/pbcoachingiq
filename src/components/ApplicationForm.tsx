@@ -26,7 +26,7 @@ const PITCH_POSITIONS = [
 const schema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
-  phone: z.string().trim().min(1, "Phone number is required").max(32),
+  phone: z.string().trim().max(32).optional().or(z.literal("")),
   instagram: z.string().trim().min(1, "Instagram is required").max(100),
   position: z.enum(["Attacker", "Midfielder", "Defender", "Goalkeeper"], {
     errorMap: () => ({ message: "Pick your position" }),
@@ -53,7 +53,7 @@ interface Step {
 const STEPS: Step[] = [
   { key: "firstName", label: "What's your first name?", type: "text", placeholder: "Your name", required: true },
   { key: "email", label: "What's your email?", sublabel: "We'll send your call confirmation here.", type: "email", placeholder: "you@example.com", required: true },
-  { key: "phone", label: "Phone number", sublabel: "We'll text reminders to keep you on track.", type: "tel", placeholder: "(555) 000-0000", required: true },
+  { key: "phone", label: "Phone number (optional)", sublabel: "We'll text reminders to keep you on track.", type: "tel", placeholder: "(555) 000-0000", required: false },
   { key: "instagram", label: "What's your Instagram?", sublabel: "So we can contact you there.", type: "text", placeholder: "@yourhandle", required: true },
   { key: "position", label: "What position do you play?", type: "select", required: true },
   { key: "age", label: "How old are you?", type: "number", placeholder: "e.g. 17", required: true },
