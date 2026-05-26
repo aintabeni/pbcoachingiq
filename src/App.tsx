@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
 import Apply from "./pages/Apply";
+import BookCall from "./pages/BookCall";
 import ThankYou from "./pages/ThankYou";
 import OfferCourse from "./pages/OfferCourse";
 import OfferEbook from "./pages/OfferEbook";
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/apply" element={<Apply />} />
+          <Route path="/book-call" element={<BookCall />} />
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/offer/course" element={<OfferCourse />} />
           <Route path="/offer/ebook" element={<OfferEbook />} />
