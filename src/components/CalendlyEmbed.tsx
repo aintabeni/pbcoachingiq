@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const CALENDLY_URL = "https://calendly.com/pbcoachingiq/30min";
 const SCRIPT_ID = "calendly-widget-script";
@@ -23,8 +24,7 @@ const CalendlyEmbed = ({ redirectOnBook, minHeight = 720 }: CalendlyEmbedProps) 
   }, []);
 
   useEffect(() => {
-    if (!redirectOnBook) return;
-    const handler = (e: MessageEvent) => {
+    const handler = async (e: MessageEvent) => {
       const data = e.data;
       if (
         data &&
@@ -32,7 +32,17 @@ const CalendlyEmbed = ({ redirectOnBook, minHeight = 720 }: CalendlyEmbedProps) 
         typeof data.event === "string" &&
         data.event === "calendly.event_scheduled"
       ) {
-        navigate(redirectOnBook);
+        // Tag the lead as "booked" in the CRM
+        try {
+          const email = localStorage.getItem("pb_email");
+          if (email) {
+            await supabase.functions.invoke("mark-booked", { body: { email } });
+          }
+        } catch (err) {
+          console.error("mark-booked invoke failed", err);
+        }
+
+        if (redirectOnBook) navigate(redirectOnBook);
       }
     };
     window.addEventListener("message", handler);

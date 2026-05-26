@@ -140,6 +140,8 @@ const ApplicationForm = () => {
         toast({ title: "Couldn't submit", description: typeof msg === "string" ? msg : "Please try again.", variant: "destructive" });
         return;
       }
+      // Persist email for later booking-tag tracking
+      try { localStorage.setItem("pb_email", parsed.data.email); } catch {}
 
       // Route based on budget
       const budget = parsed.data.budget;
