@@ -10,7 +10,7 @@ interface CalendlyEmbedProps {
   minHeight?: number;
 }
 
-const CalendlyEmbed = ({ redirectOnBook, minHeight = 720 }: CalendlyEmbedProps) => {
+const CalendlyEmbed = ({ redirectOnBook, minHeight }: CalendlyEmbedProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,10 +51,15 @@ const CalendlyEmbed = ({ redirectOnBook, minHeight = 720 }: CalendlyEmbedProps) 
 
   return (
     <div
-      className="calendly-inline-widget w-full"
+      className="calendly-inline-widget w-full min-h-[1400px] md:min-h-[1100px]"
       data-url={CALENDLY_URL}
       data-auto-load="true"
-      style={{ minWidth: "320px", minHeight: `${minHeight}px`, height: "auto", overflow: "visible" }}
+      style={{
+        minWidth: "320px",
+        height: "auto",
+        overflow: "visible",
+        ...(minHeight ? { minHeight: `${minHeight}px` } : {}),
+      }}
     />
   );
 };

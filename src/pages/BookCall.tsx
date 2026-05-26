@@ -21,7 +21,7 @@ const BookCall = () => {
         </p>
 
         <div className="glass rounded-2xl p-2 md:p-4 overflow-visible">
-          <CalendlyEmbed redirectOnBook="/thank-you" minHeight={760} />
+          <CalendlyEmbed redirectOnBook="/thank-you" />
         </div>
       </div>
     </div>
