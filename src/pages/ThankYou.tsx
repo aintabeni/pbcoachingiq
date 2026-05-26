@@ -33,7 +33,7 @@ const ThankYou = () => {
           </p>
         </div>
         <div className="glass rounded-2xl p-2 md:p-4">
-          <CalendlyEmbed minHeight={720} />
+          <CalendlyEmbed />
         </div>
       </div>
 
