@@ -53,7 +53,8 @@ const CalendlyEmbed = ({ redirectOnBook, minHeight = 720 }: CalendlyEmbedProps) 
     <div
       className="calendly-inline-widget w-full"
       data-url={CALENDLY_URL}
-      style={{ minWidth: "320px", height: `${minHeight}px` }}
+      data-auto-load="true"
+      style={{ minWidth: "320px", minHeight: `${minHeight}px`, height: "auto", overflow: "visible" }}
     />
   );
 };
