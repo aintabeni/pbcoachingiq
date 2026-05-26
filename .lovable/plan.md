@@ -1,40 +1,34 @@
 ## Goal
 
-Send applicants with budget **$500 - $1,000**, or **$1,000+** to a new `/book-call` page that embeds Calendly. After they book, auto-redirect them to `/thank-you`. Also add a "Book Your Call" section at the very top of `/thank-you` as a fallback.
+Stop the Calendly iframe from showing its own internal scrollbar on `/book-call` (and the `/thank-you` fallback section) by making the embed container tall enough to fit Calendly's full content at every step (intro, date/time, form).
+
+## Why it's still scrolling
+
+Calendly's inline widget renders inside an iframe whose height is controlled by the host container. Right now we set `minHeight: 760px` (BookCall) / `720px` (ThankYou). Calendly's booking form step needs ~1000–1150px on desktop and more on mobile, so the iframe content overflows and Calendly shows its own scrollbar.
+
+There is no reliable public postMessage event for "page_height" on the standard inline widget, so the robust fix is to give the container a generous min-height that always fits the tallest Calendly step.
 
 ## Changes
 
-### 1. New page `src/pages/BookCall.tsx` (route `/book-call`)
+### 1. `src/components/CalendlyEmbed.tsx`
 
-- Project theme + glass styling, no brand logo (funnel page rule).
-- Headline: "Book Your Free Discovery Call" + short subheadline.
-- Calendly inline embed:
-  - Load `https://assets.calendly.com/assets/external/widget.js` once via `useEffect`.
-  - Render `<div className="calendly-inline-widget" data-url="https://calendly.com/pbcoachingiq/30min" />` (min-height ~720px desktop, full width mobile).
-- **Auto-redirect on booking**: add a `window` `message` listener that checks `event.data.event === "calendly.event_scheduled"` and calls `navigate("/thank-you")`. This is Calendly's documented postMessage event, so the listener approach works — the fallback section is still added per your request.
-- `SEO` tags (noindex).
+- Replace the fixed pixel `minHeight` style with a responsive min-height that fits Calendly's tallest step:
+  - Mobile: `min-h-[1400px]` (Calendly stacks vertically on narrow widths)
+  - `md:min-h-[1100px]` desktop default
+- Keep `height: auto`, `overflow: visible`.
+- Keep the `minHeight` prop as an optional override (default raised so callers don't have to think about it), but apply it as a floor on top of the Tailwind classes.
 
-### 2. Register route in `src/App.tsx`
+### 2. `src/pages/BookCall.tsx`
 
-- Add `<Route path="/book-call" element={<BookCall />} />`.
+- Drop the explicit `minHeight={760}` (let the new defaults apply).
+- Keep `glass` container with `overflow-visible`; remove any height constraint.
+- Make sure the outer page wrapper doesn't cap height (it already uses `min-h-screen`, no change needed).
 
-### 3. Update routing in `src/components/ApplicationForm.tsx` (lines 144–154)
+### 3. `src/pages/ThankYou.tsx`
 
-- `$1,000+` → `/book-call`
-- `$500 - $1,000` → `/book-call`
-- `$200 - $500` → `/offer/course (unchanged)`
-- `$50 - $100` → `/offer/ebook` (unchanged)
-- `< $50` → `/offer/reapply` (unchanged)
-
-### 4. Add "Book Your Call" section to `src/pages/ThankYou.tsx`
-
-- New section at the very top (above all existing content):
-  - Headline: "Book Your Free Discovery Call"
-  - Short copy
-  - Calendly inline embed (same script + widget div as `/book-call`)
-- Existing ThankYou content (social proof + single YouTube CTA) stays below, per the Thank You page memory rule.
+- Drop the explicit `minHeight={720}` on the fallback `CalendlyEmbed` so it uses the same generous defaults.
 
 ## Notes
 
-- Calendly script is loaded idempotently (guard with an `id` check) so it's safe to mount on both pages.
-- No backend changes; no new dependencies.
+- No backend changes. `mark-booked` flow and redirect logic stay exactly as they are.
+- No new dependencies. Pure CSS/height fix.
