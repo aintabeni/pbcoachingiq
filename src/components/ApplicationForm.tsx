@@ -144,7 +144,7 @@ const ApplicationForm = () => {
       // Route based on budget
       const budget = parsed.data.budget;
       if (budget === "$500 - $1,000" || budget === "$1,000+") {
-        navigate("/thank-you");
+        navigate("/book-call");
       } else if (budget === "$200 - $500") {
         navigate("/offer/course");
       } else if (budget === "$50 - $100") {

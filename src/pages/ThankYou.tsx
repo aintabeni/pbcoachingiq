@@ -3,6 +3,7 @@ import { AlertTriangle } from "lucide-react";
 import { Testimonials } from "@/components/Testimonials";
 import { SocialProof } from "@/components/SocialProof";
 import SEO from "@/components/SEO";
+import CalendlyEmbed from "@/components/CalendlyEmbed";
 
 const ThankYou = () => {
   useEffect(() => {
@@ -18,6 +19,24 @@ const ThankYou = () => {
         description="Final steps to confirm your discovery call with PB Coaching. Watch the parent video and the coaching philosophy before your call."
         path="/thank-you"
       />
+      {/* Book Your Call — top section */}
+      <div className="w-full max-w-4xl flex flex-col gap-4">
+        <div className="text-center">
+          <p className="text-primary font-semibold text-sm md:text-base tracking-widest uppercase mb-2">
+            Step 1
+          </p>
+          <h2 className="text-2xl md:text-3xl font-black text-foreground leading-tight mb-2">
+            Book Your Free Discovery Call
+          </h2>
+          <p className="text-foreground/70 text-sm md:text-base max-w-xl mx-auto">
+            If you haven't already, pick a time below to lock in your call.
+          </p>
+        </div>
+        <div className="glass rounded-2xl p-2 md:p-4">
+          <CalendlyEmbed minHeight={720} />
+        </div>
+      </div>
+
       {/* Hero message */}
       <div className="glass rounded-2xl p-10 md:p-14 max-w-2xl w-full fade-in flex flex-col items-center gap-5 text-center">
         <AlertTriangle className="w-14 h-14 text-primary" />
