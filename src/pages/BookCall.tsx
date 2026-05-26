@@ -20,7 +20,7 @@ const BookCall = () => {
           Pick a time that works for you. We'll meet for 30 minutes to build your personalised plan.
         </p>
 
-        <div className="glass rounded-2xl p-2 md:p-4">
+        <div className="glass rounded-2xl p-2 md:p-4 overflow-visible">
           <CalendlyEmbed redirectOnBook="/thank-you" minHeight={760} />
         </div>
       </div>
